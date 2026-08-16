@@ -1,0 +1,196 @@
+/* terminal.css */
+
+body.terminal-mode {
+    overflow: hidden; /* Prevent body scrolling */
+    background: var(--color-bg-dark);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.terminal-mode .site-header {
+    background: var(--color-bg-dark) !important;
+    color: var(--color-cream) !important;
+}
+.terminal-mode .site-header .nav-link {
+    color: var(--color-cream);
+}
+.terminal-mode .site-header .btn-primary {
+    color: var(--color-cream) !important;
+}
+
+.terminal-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.terminal-screen {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--color-cream);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: flex;
+}
+
+.chapter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    flex-direction: row;
+}
+
+.chapter.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .chapter {
+        transition: none;
+    }
+}
+
+.chapter-artwork {
+    flex: 1;
+    background: #e2e8f0;
+    border-right: 2px solid var(--color-navy);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-weight: bold;
+    color: var(--color-navy);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.chapter-content {
+    flex: 1;
+    padding: 4rem;
+    overflow-y: auto; /* Allow internal scroll on tiny screens if absolutely needed */
+    color: var(--color-navy);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.chapter-content h1, .chapter-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    color: var(--color-navy);
+}
+
+.chapter-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+.chapter-content strong {
+    font-weight: 700;
+}
+
+/* Terminal Controls */
+.terminal-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0 0 0;
+    color: var(--color-cream);
+}
+
+.btn-terminal {
+    background: transparent;
+    color: var(--color-cream);
+    border: 2px solid var(--color-cream);
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+}
+
+.btn-terminal:hover:not(:disabled) {
+    background: var(--color-cream);
+    color: var(--color-bg-dark);
+}
+
+.btn-terminal:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.terminal-indicator {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.chapter-select {
+    background: transparent;
+    color: var(--color-cream);
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.chapter-select option {
+    background: var(--color-bg-dark);
+    color: var(--color-cream);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .chapter {
+        flex-direction: column;
+    }
+    .chapter-artwork {
+        border-right: none;
+        border-bottom: 2px solid var(--color-navy);
+        flex: 0.4;
+        min-height: 200px;
+    }
+    .chapter-content {
+        flex: 0.6;
+        padding: 2rem;
+    }
+    .chapter-content h1, .chapter-content h2 {
+        font-size: 2rem;
+    }
+    .btn-terminal {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    .chapter-select {
+        font-size: 0.9rem;
+        max-width: 200px;
+    }
+}

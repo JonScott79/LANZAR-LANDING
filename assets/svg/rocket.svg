@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--==========================================================
+    Build.me
+    Rocket Icon v2
+    Atomic Age
+===========================================================-->
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260">
+
+    <defs>
+
+        <!-- Rocket Body -->
+        <linearGradient id="rocketBody" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4A97B3"/>
+            <stop offset="50%" stop-color="#2A728F"/>
+            <stop offset="100%" stop-color="#20596E"/>
+        </linearGradient>
+
+        <!-- Orange -->
+        <linearGradient id="rocketOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF8A63"/>
+            <stop offset="100%" stop-color="#F46B45"/>
+        </linearGradient>
+
+        <!-- Glass -->
+        <radialGradient id="glass">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="75%" stop-color="#EAF4F8"/>
+            <stop offset="100%" stop-color="#C7D0D5"/>
+        </radialGradient>
+
+        <!-- Flame -->
+        <linearGradient id="flame" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFE587"/>
+            <stop offset="55%" stop-color="#F7C856"/>
+            <stop offset="100%" stop-color="#E2B84D"/>
+        </linearGradient>
+
+        <!-- Shadow -->
+        <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#000000" flood-opacity=".18"/>
+        </filter>
+
+    </defs>
+
+    <g filter="url(#shadow)">
+
+        <!-- Rocket Body -->
+        <path
+            d="M100 5
+               C118 42 124 95 122 175
+               L100 160
+               L78 175
+               C76 95 82 42 100 5Z"
+            fill="url(#rocketBody)"/>
+
+        <!-- Nose Cone -->
+        <path
+            d="M100 10
+               L111 40
+               L89 40Z"
+            fill="url(#rocketOrange)"/>
+
+        <!-- Chrome Ring -->
+        <circle
+            cx="100"
+            cy="78"
+            r="15"
+            fill="none"
+            stroke="#D5DDE2"
+            stroke-width="3"/>
+
+        <!-- Window -->
+        <circle
+            cx="100"
+            cy="78"
+            r="12"
+            fill="url(#glass)"/>
+
+        <!-- Window Reflection -->
+        <circle
+            cx="96"
+            cy="73"
+            r="3"
+            fill="#FFFFFF"
+            opacity=".75"/>
+
+        <!-- Left Fin -->
+        <path
+            d="M78 138
+               C58 150 42 170 28 190
+               L80 165Z"
+            fill="url(#rocketOrange)"/>
+
+        <!-- Right Fin -->
+        <path
+            d="M122 138
+               C142 150 158 170 172 190
+               L120 165Z"
+            fill="url(#rocketOrange)"/>
+
+        <!-- Flame -->
+        <path
+            d="M100 168
+               C86 188 88 220 100 248
+               C112 220 114 188 100 168Z"
+            fill="url(#flame)"/>
+
+        <!-- Inner Flame -->
+        <path
+            d="M100 176
+               C95 192 96 214 100 230
+               C104 214 105 192 100 176Z"
+            fill="#FFF2B3"
+            opacity=".85"/>
+
+    </g>
+
+</svg>

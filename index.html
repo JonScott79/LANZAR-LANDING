@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANZAR | Build Tomorrow. Starting Today.</title>
+    <meta name="description" content="LANZAR builds websites, software, AI, automation, IT, and digital systems.">
+    <link rel="canonical" href="https://lanzar.me">
+    
+    <meta property="og:title" content="LANZAR | Build Tomorrow. Starting Today." />
+    <meta property="og:description" content="LANZAR builds websites, software, AI, automation, IT, and digital systems." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lanzar.me" />
+    <meta name="theme-color" content="#102A43" />
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- =====================================
+         Opening Animation Sequence
+    ===================================== -->
+    <div id="intro-sequence" aria-hidden="true">
+        <button id="skip-intro" class="btn-skip">SKIP INTRO</button>
+        
+        <div class="intro-canvas">
+            <!-- Rocket, Smoke, and Logo SVG injected via JS or inline -->
+            <div class="intro-center-logo">
+                <svg viewBox="0 0 900 260" id="intro-lanzar-logo">
+                    <!-- Base Wordmark Masking Setup -->
+                    <defs>
+                        <clipPath id="reveal-mask">
+                            <rect id="reveal-rect" x="0" y="0" width="0" height="300" fill="#fff" />
+                        </clipPath>
+                    </defs>
+
+                    <!-- Hidden Orbit / Elements -->
+                    <g id="logo-graphics" opacity="0">
+                        <ellipse cx="450" cy="120" rx="360" ry="82" fill="none" stroke="#2A728F" stroke-width="4" transform="rotate(-9 450 120)" />
+                        <circle cx="805" cy="82" r="10" fill="#F46B45" />
+                        <g transform="translate(112 58)"><polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3" fill="#E2B84D" /></g>
+                        <line x1="185" y1="164" x2="710" y2="164" stroke="#2A728F" stroke-width="2" opacity="0.9" />
+                    </g>
+                    
+                    <!-- Wordmark -->
+                    <g transform="skewX(-14)" clip-path="url(#reveal-mask)">
+                        <text x="180" y="142" font-family="'Space Grotesk', sans-serif" font-size="84" font-weight="700" fill="#F5EBDD" letter-spacing="-3">LANZAR</text>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- The Rocket -->
+            <div id="intro-rocket-wrapper">
+                <img src="assets/svg/rocket.svg" alt="" class="intro-rocket">
+                <img src="assets/svg/smoke.svg" alt="" class="intro-smoke">
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================
+         Main Content / The LANZAR World
+    ===================================== -->
+    <div id="world-window" class="hidden">
+        
+        <!-- City Layers Placeholder -->
+        <div class="living-city">
+            <!-- Background Image Placeholder from _images -->
+            <div class="layer layer-sky">
+                <!-- Sky gradient, clouds -->
+            </div>
+            <div class="layer layer-city" style="background-image: url('assets/images/lanzar-bg.png');">
+                <!-- Distant buildings, lights -->
+            </div>
+            <div class="layer layer-air-traffic">
+                <!-- Flying cars, rockets -->
+            </div>
+            <div class="layer layer-transit">
+                <!-- Monorails -->
+            </div>
+            <div class="layer layer-street">
+                <!-- Pedestrians, robots -->
+            </div>
+            <div class="layer layer-environment">
+                <!-- Foreground water, fountains -->
+            </div>
+        </div>
+
+        <div class="site-content">
+            <header class="site-header">
+                <div class="header-logo">
+                    <!-- The logo settles here -->
+                    <img src="assets/svg/logo.svg" alt="LANZAR" class="nav-logo" />
+                </div>
+                <nav class="site-nav" aria-label="Main Navigation">
+                    <ul class="nav-list">
+                        <li><a href="#what-we-do" class="nav-link">WHAT WE DO</a></li>
+                        <li><a href="#projects" class="nav-link">PROJECTS</a></li>
+                        <li><a href="/about/" class="nav-link">ABOUT</a></li>
+                        <li><a href="https://portal.lanzar.me" class="nav-link">PORTAL</a></li>
+                        <li><a href="#contact" class="nav-link btn-primary">CONTACT</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <main>
+                <section class="hero-section">
+                    <div class="hero-content">
+                        <h1 class="sr-only">LANZAR</h1>
+                        <h2 class="hero-tagline">BUILD TOMORROW. STARTING TODAY.</h2>
+                        <p class="hero-capabilities">Websites. Software. AI. Automation. IT. Digital Systems.</p>
+                        
+                        <div class="hero-actions">
+                            <a href="#contact" class="btn-primary btn-large">HELL YEAH</a>
+                            <a href="#what-we-do" class="btn-secondary">SHALL WE SHOW YOU THE POSSIBILITIES?</a>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="what-we-do" class="content-section">
+                    <div class="container">
+                        <h2>WHAT WE DO</h2>
+                        <div class="grid-placeholder" aria-label="LANZAR Service Inventory">
+                            
+                            <!-- Web Services -->
+                            <a href="https://web.lanzar.me" class="card-placeholder">
+                                <h3>Web Design & Development</h3>
+                                <p>web.lanzar.me</p>
+                            </a>
+                            
+                            <!-- IT / Systems -->
+                            <a href="https://it.lanzar.me" class="card-placeholder">
+                                <h3>Managed IT Support</h3>
+                                <p>it.lanzar.me</p>
+                            </a>
+                            <a href="https://it.lanzar.me" class="card-placeholder">
+                                <h3>Network Administration</h3>
+                                <p>it.lanzar.me</p>
+                            </a>
+                            <a href="https://it.lanzar.me" class="card-placeholder">
+                                <h3>Server Monitoring</h3>
+                                <p>it.lanzar.me</p>
+                            </a>
+                            
+                            <!-- Software & AI -->
+                            <a href="https://threadline.lanzar.me" class="card-placeholder">
+                                <h3>Software & Applications</h3>
+                                <p>threadline.lanzar.me</p>
+                            </a>
+                            <a href="https://ai.lanzar.me" class="card-placeholder" style="position: relative;">
+                                <h3>AI & Automation</h3>
+                                <p>ai.lanzar.me</p>
+                                <span class="badge-coming-soon" style="position: absolute; top: 1rem; right: 1rem; background: var(--color-primary); color: var(--color-cream); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">COMING SOON</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="support" class="content-section" style="background: rgba(16, 42, 67, 0.85); color: var(--color-cream);">
+                    <div class="container" style="text-align: center;">
+                        <h2 style="color: var(--color-cream); margin-bottom: 0.5rem;">ALREADY A CUSTOMER?</h2>
+                        <p style="margin-bottom: 2rem; opacity: 0.9;">Access the LANZAR Customer Portal or open a support ticket.</p>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <a href="https://portal.lanzar.me" class="btn-primary">CUSTOMER PORTAL</a>
+                            <a href="https://tickets.lanzar.me" class="btn-secondary" style="border-color: var(--color-cream); color: var(--color-cream);">OPEN A TICKET</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projects" class="content-section">
+                    <div class="container">
+                        <h2>MISSIONS</h2>
+                        <div class="mission-placeholder">
+                            <h3>MISSION: THREADLINE</h3>
+                            <p>COMMUNICATION INTELLIGENCE<br>STATUS: ACTIVE DEVELOPMENT</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="about" class="content-section">
+                    <div class="container">
+                        <h2>THE FUTURE THEY IMAGINED</h2>
+                        <p>At LANZAR, optimism inspires everything we create.</p>
+                        <div class="artwork-placeholder">[ PHILOSOPHY ARTWORK ]</div>
+                    </div>
+                </section>
+                
+                <section id="contact" class="content-section cta-section">
+                    <div class="container">
+                        <h2>READY TO BUILD SOMETHING?</h2>
+                        <p>Let's make the future a little less imaginary.</p>
+                        <div class="cta-actions">
+                            <a href="mailto:hello@lanzar.me" class="btn-primary btn-large">HELL YEAH. LET'S BUILD IT.</a>
+                            <a href="#contact" class="btn-secondary">TALK TO LANZAR</a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- =====================================
+         Scripts
+    ===================================== -->
+    <script src="js/analytics.js"></script>
+    <script src="js/animation.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
+
+</body>
+</html>

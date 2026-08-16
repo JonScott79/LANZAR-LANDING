@@ -1,0 +1,40 @@
+/* theme.css */
+:root {
+    /* 1950s Optimistic Retro-Futurism Colors */
+    --color-primary: #F46B45; /* Orange/Red */
+    --color-secondary: #2A728F; /* Teal/Blue */
+    --color-accent: #E2B84D; /* Yellow/Gold */
+    --color-bg-dark: #0f172a; /* Deep space */
+    
+    --color-cream: #F5EBDD; /* Warm Cream / Ivory */
+    --color-navy: #102A43; /* Deep Navy */
+    
+    --color-text-light: var(--color-cream);
+    --color-text-dark: var(--color-navy);
+    
+    --font-primary: 'Space Grotesk', sans-serif;
+    
+    --z-intro: 1000;
+    --z-header: 100;
+    --z-content: 50;
+    --z-city-fg: 10;
+    --z-city-bg: 1;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--color-text-light);
+    background-color: var(--color-bg-dark);
+}
+
+/* Accessibility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

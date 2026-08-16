@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1600 900"
+     fill="none">
+
+    <defs>
+
+        <linearGradient id="orbitGradient"
+                        x1="0"
+                        y1="0"
+                        x2="1600"
+                        y2="900"
+                        gradientUnits="userSpaceOnUse">
+
+            <stop offset="0%" stop-color="#F46B45"/>
+            <stop offset="100%" stop-color="#F4A261"/>
+
+        </linearGradient>
+
+    </defs>
+
+    <!-- Main Orbit -->
+
+    <path
+        id="flightPath"
+
+        d="
+        M210 395
+
+        C210 120,
+          560 40,
+          980 85
+
+        C1365 130,
+          1485 405,
+          1335 620
+
+        C1185 835,
+          725 865,
+          395 710
+
+        C155 595,
+          95 505,
+          210 395
+        "
+
+        stroke="url(#orbitGradient)"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-dasharray="18 18"
+        opacity=".28"/>
+
+</svg>

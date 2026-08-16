@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<svg xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 700 1400">
+
+<g id="smoke" fill="#C8C8C8" fill-opacity=".88">
+
+<!-- Near Rocket -->
+<circle class="puff p1" cx="190" cy="70" r="18"/>
+<circle class="puff p2" cx="215" cy="82" r="20"/>
+<circle class="puff p3" cx="240" cy="96" r="18"/>
+
+<!-- Trail Begins -->
+<circle class="puff p4" cx="175" cy="145" r="28"/>
+<circle class="puff p5" cx="215" cy="160" r="32"/>
+<circle class="puff p6" cx="260" cy="178" r="28"/>
+
+<!-- Growing -->
+<circle class="puff p7" cx="150" cy="245" r="42"/>
+<circle class="puff p8" cx="210" cy="265" r="48"/>
+<circle class="puff p9" cx="285" cy="290" r="44"/>
+
+<circle class="puff p10" cx="125" cy="365" r="56"/>
+<circle class="puff p11" cx="205" cy="390" r="64"/>
+<circle class="puff p12" cx="305" cy="425" r="58"/>
+
+<circle class="puff p13" cx="110" cy="520" r="72"/>
+<circle class="puff p14" cx="210" cy="555" r="82"/>
+<circle class="puff p15" cx="335" cy="600" r="76"/>
+
+<circle class="puff p16" cx="115" cy="720" r="90"/>
+<circle class="puff p17" cx="240" cy="760" r="102"/>
+<circle class="puff p18" cx="395" cy="815" r="95"/>
+
+<circle class="puff p19" cx="145" cy="965" r="110"/>
+<circle class="puff p20" cx="305" cy="1020" r="122"/>
+<circle class="puff p21" cx="495" cy="1085" r="112"/>
+
+<!-- Bottom plume -->
+<circle class="puff p22" cx="185" cy="1230" r="118"/>
+<circle class="puff p23" cx="395" cy="1295" r="130"/>
+<circle class="puff p24" cx="615" cy="1365" r="120"/>
+
+</g>
+
+</svg>

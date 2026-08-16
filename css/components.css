@@ -1,0 +1,114 @@
+/* components.css */
+
+/* Navigation */
+.nav-logo {
+    height: 60px;
+    width: auto;
+}
+
+.site-nav .nav-list {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+}
+
+.nav-link {
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+    color: inherit;
+}
+
+.nav-link:hover {
+    color: var(--color-primary);
+}
+
+/* Buttons */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--color-primary);
+    color: var(--color-cream);
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #d85430;
+    transform: translateY(-2px);
+}
+
+.btn-large {
+    font-size: 1.25rem;
+    padding: 1.25rem 3rem;
+}
+
+.btn-secondary {
+    display: inline-block;
+    background-color: transparent;
+    color: inherit;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid currentColor;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: currentColor;
+    color: var(--color-bg-dark);
+}
+
+.btn-skip {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    cursor: pointer;
+    z-index: 100;
+    font-family: var(--font-primary);
+}
+
+.btn-skip:hover {
+    color: white;
+    border-color: white;
+}
+
+/* Placeholders */
+.grid-placeholder {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.card-placeholder, .artwork-placeholder, .mission-placeholder {
+    background: rgba(0,0,0,0.05);
+    border: 2px dashed rgba(0,0,0,0.2);
+    padding: 4rem;
+    text-align: center;
+    border-radius: 12px;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+/* Typography */
+h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
