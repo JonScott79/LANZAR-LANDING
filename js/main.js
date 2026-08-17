@@ -43,3 +43,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// =====================================
+// Blog Display Controls
+// =====================================
+document.addEventListener("DOMContentLoaded", () => {
+    const blogs = [
+        "blog/philosophy.html",
+        "blog/public-built.html",
+        "blog/origin.html",
+        "blog/digital-frontier.html",
+        "blog/catting-code.html",
+        "blog/ninety-nine-login.html"
+    ];
+    let currentBlog = 0;
+    
+    const screen = document.getElementById("blog-display");
+    const btnPrev = document.getElementById("blog-previous");
+    const btnNext = document.getElementById("blog-next");
+    
+    if (screen && btnPrev && btnNext) {
+        btnPrev.addEventListener("click", () => {
+            currentBlog--;
+            if (currentBlog < 0) currentBlog = blogs.length - 1;
+            screen.src = blogs[currentBlog];
+        });
+        
+        btnNext.addEventListener("click", () => {
+            currentBlog++;
+            if (currentBlog >= blogs.length) currentBlog = 0;
+            screen.src = blogs[currentBlog];
+        });
+    }
+});
