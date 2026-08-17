@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /blog/_template.html
+Sitemap: https://lanzar.me/sitemap.xml

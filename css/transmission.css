@@ -1,0 +1,22 @@
+.transmission {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: monospace;
+}
+.transmission-label {
+  color: #F46B45;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.transmission h1 {
+  color: #102A43;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+.transmission p {
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
