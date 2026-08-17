@@ -191,10 +191,12 @@
     animation: led-blink 3s infinite; 
 }
 
-@keyframes led-blink {
-    0%, 95% { opacity: 1; }
-    96%, 99% { opacity: 0.3; }
-    100% { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+    @keyframes led-blink {
+        0%, 95% { opacity: 1; }
+        96%, 99% { opacity: 0.3; }
+        100% { opacity: 1; }
+    }
 }
 
 .terminal-label {

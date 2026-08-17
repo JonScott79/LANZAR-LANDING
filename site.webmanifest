@@ -1,0 +1,15 @@
+{
+  "name": "LANZAR",
+  "short_name": "LANZAR",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#102A43",
+  "background_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/assets/svg/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

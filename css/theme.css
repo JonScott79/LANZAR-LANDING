@@ -38,3 +38,8 @@ body {
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
+*:focus-visible {
+    outline: 2px solid var(--color-accent, #F46B45);
+    outline-offset: 4px;
+}
