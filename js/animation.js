@@ -7,6 +7,29 @@
 export function initAnimation() {
     const introSequence = document.getElementById('intro-sequence');
     const worldWindow = document.getElementById('world-window');
+    
+    // Check if intro is skipped globally or for session
+    if (localStorage.getItem('skip_lanzar_intro') === 'true' || sessionStorage.getItem('lanzar_intro_played') === 'true') {
+        if(introSequence) introSequence.style.display = 'none';
+        if(worldWindow) worldWindow.classList.remove('hidden');
+        return;
+    }
+    
+    // Mark as played for this session
+    sessionStorage.setItem('lanzar_intro_played', 'true');
+    
+    const disableCheck = document.getElementById('disable-intro-check');
+    if (disableCheck) {
+        disableCheck.checked = (localStorage.getItem('skip_lanzar_intro') === 'true');
+        disableCheck.addEventListener('change', (e) => {
+            if (e.target.checked) {
+                localStorage.setItem('skip_lanzar_intro', 'true');
+            } else {
+                localStorage.removeItem('skip_lanzar_intro');
+            }
+        });
+    }
+
     const skipBtn = document.getElementById('skip-intro');
     const rocketWrapper = document.getElementById('intro-rocket-wrapper');
     const revealRect = document.getElementById('reveal-rect');
