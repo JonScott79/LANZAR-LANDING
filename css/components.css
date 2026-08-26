@@ -53,21 +53,25 @@
 
 .btn-secondary {
     display: inline-block;
-    background-color: transparent;
-    color: inherit;
+    background-color: rgba(245, 235, 221, 0.05);
+    color: var(--color-cream, #F5EBDD);
     padding: 0.75rem 2rem;
     border-radius: 50px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    border: 2px solid currentColor;
+    border: 2px solid var(--color-cream, #F5EBDD);
     cursor: pointer;
-    transition: all 0.2s;
+    text-shadow: none;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .btn-secondary:hover {
-    background-color: currentColor;
-    color: var(--color-bg-dark);
+    background-color: var(--color-cream, #F5EBDD);
+    color: var(--color-navy, #102A43);
+    border-color: var(--color-cream, #F5EBDD);
+    text-shadow: none;
+    transform: translateY(-2px);
 }
 
 .btn-skip {
