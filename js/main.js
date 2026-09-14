@@ -54,13 +54,25 @@ document.addEventListener("DOMContentLoaded", () => {
         "blog/origin.html",
         "blog/digital-frontier.html",
         "blog/catting-code.html",
-        "blog/ninety-nine-login.html"
+        "blog/ninety-nine-login.html",
+        "blog/free-is-harder-than-it-sounds.html"
     ];
-    let currentBlog = 0;
-    
+    // Check if a specific blog was targeted via hash (e.g. #free-is-harder-than-it-sounds)
+    if (window.location.hash) {
+        const targetSlug = window.location.hash.replace('#', '').toLowerCase();
+        const foundIndex = blogs.findIndex(b => b.toLowerCase().includes(targetSlug));
+        if (foundIndex !== -1) {
+            currentBlog = foundIndex;
+        }
+    }
+
     const screen = document.getElementById("blog-display");
     const btnPrev = document.getElementById("blog-previous");
     const btnNext = document.getElementById("blog-next");
+    
+    if (screen) {
+        screen.src = blogs[currentBlog];
+    }
     
     if (screen && btnPrev && btnNext) {
         btnPrev.addEventListener("click", () => {
