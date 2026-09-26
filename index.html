@@ -140,13 +140,15 @@
             <header class="site-header">
                 <div class="header-logo">
                     <!-- The logo settles here -->
-                    <img src="assets/svg/logo.svg" alt="LANZAR" class="nav-logo" />
+                    <a href="/" aria-label="LANZAR Home" style="display: inline-block; cursor: pointer;">
+                        <img src="assets/svg/logo.svg" alt="LANZAR" class="nav-logo" />
+                    </a>
                 </div>
                 <nav class="site-nav" aria-label="Main Navigation">
                     <ul class="nav-list">
-                        <li><a href="#what-we-do" class="nav-link">WHAT WE DO</a></li>
-                        <li><a href="#projects" class="nav-link">PROJECTS</a></li>
-                        
+                        <li><a href="#what-we-do" class="nav-link">SERVICES</a></li>
+                        <li><a href="#innovation" class="nav-link">INNOVATION</a></li>
+                        <li><a href="#purpose" class="nav-link">PURPOSE</a></li>
                         <li><a href="blog.html" class="nav-link">BLOG</a></li>
                         <li><a href="https://portal.lanzar.me" class="nav-link">PORTAL</a></li>
                         <li><a href="#contact" class="nav-link btn-primary">CONTACT</a></li>
@@ -163,50 +165,285 @@
                         
                         <div class="hero-actions">
                             <a href="#contact" class="btn-primary btn-large">LET'S GO</a>
-                            <a href="#what-we-do" class="btn-secondary">SHALL WE SHOW YOU THE POSSIBILITIES?</a>
+                            <a href="https://web.lanzar.me" class="btn-secondary">EXPLORE WEB DEVELOPMENT ↗</a>
                         </div>
                     </div>
                 </section>
                 
                 <section id="what-we-do" class="content-section">
                     <div class="container">
-                        <h2>WHAT WE DO</h2>
-                        <div class="grid-placeholder" aria-label="LANZAR Service Inventory">
+                        <div style="margin-bottom: 2rem;">
+                            <span style="display: inline-block; color: var(--color-primary); font-family: var(--font-code, monospace); font-size: 0.85rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.5rem;">
+                                Commercial Services &amp; Digital Solutions
+                            </span>
+                            <h2>WHAT WE DO</h2>
+                            <p style="font-size: 1.2rem; max-width: 780px; color: var(--color-navy); opacity: 0.9; line-height: 1.6;">
+                                We partner with businesses to engineer custom digital systems, build modern web platforms, and provide reliable, proactive IT infrastructure. Available for new client engagements.
+                            </p>
+                        </div>
+
+                        <!-- 2 Prominent Commercial Hero Cards -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
                             
-                            <!-- Web Services -->
-                            <a href="https://web.lanzar.me" class="card-placeholder" style="background-image: linear-gradient(rgba(16, 42, 67, 0.7), rgba(16, 42, 67, 0.7)), url('assets/city/cosmic-diner.jpg'); background-size: cover; background-position: center; border: 1px solid #E2B84D; color: #F5EBDD;">
-                                <h3>Web Design & Development</h3>
-                                <p>web.lanzar.me</p>
-                            </a>
+                            <!-- Web Design & Development -->
+                            <div style="background: rgba(16, 42, 67, 0.04); border: 2px solid var(--color-primary); border-radius: 12px; padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+                                        <div>
+                                            <span style="display: inline-block; background: #2E7D32; color: #ffffff; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; margin-bottom: 0.5rem;">
+                                                ● ACCEPTING NEW CLIENTS
+                                            </span>
+                                            <h3 style="font-size: 1.85rem; margin: 0; color: var(--color-navy);">Web Design &amp; Development</h3>
+                                            <p style="font-size: 1rem; font-weight: 700; color: var(--color-primary); margin: 0.25rem 0 0 0;">Custom Websites, Web Apps &amp; Client Portals</p>
+                                        </div>
+                                        <a href="https://web.lanzar.me" target="_blank" rel="noopener" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.9rem; text-decoration: none;">
+                                            EXPLORE WEB.LANZAR.ME ↗
+                                        </a>
+                                    </div>
+                                    
+                                    <p style="font-size: 1.05rem; line-height: 1.6; color: var(--color-navy); margin-bottom: 1.25rem;">
+                                        Bespoke web applications, high-performance corporate websites, and interactive portals designed and engineered around your business operations. Zero bloated templates—everything is crafted for speed, clean UX, and conversions.
+                                    </p>
+                                    
+                                    <div style="background: rgba(16, 42, 67, 0.05); border-left: 3px solid var(--color-primary); padding: 0.75rem 1rem; border-radius: 0 6px 6px 0; margin-bottom: 1.25rem; font-size: 0.9rem; color: #4a5568; line-height: 1.5;">
+                                        <strong>Active Client Deployments:</strong> Includes <a href="https://stirmycoffee.com" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold;">Stir My Coffee</a> (ratings &amp; discovery), <a href="https://homenethudson.com" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold;">HomeNet Hudson</a> (tech services), and <a href="https://predict.wpi.edu" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold;">ThermoPredict</a> (in collaboration with WPI).
+                                    </div>
+                                </div>
+                                
+                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.12); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #4a5568;">
+                                    <span>Dedicated Web Studio: <a href="https://web.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">web.lanzar.me</a></span>
+                                    <a href="https://web.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-secondary); font-weight: bold; text-decoration: none;">View Pricing &amp; Showcase →</a>
+                                </div>
+                            </div>
                             
-                            <!-- IT / Systems -->
-                            <a href="https://it.lanzar.me" class="card-placeholder" style="background-image: linear-gradient(rgba(16, 42, 67, 0.7), rgba(16, 42, 67, 0.7)), url('assets/city/lanzar-hq.jpg'); background-size: cover; background-position: center; border: 1px solid #E2B84D; color: #F5EBDD;">
-                                <h3>Managed IT Support</h3>
-                                <p>it.lanzar.me</p>
-                            </a>
-                            <a href="https://it.lanzar.me" class="card-placeholder" style="background-image: linear-gradient(rgba(16, 42, 67, 0.7), rgba(16, 42, 67, 0.7)), url('assets/city/lanzar-hq.jpg'); background-size: cover; background-position: center; border: 1px solid #E2B84D; color: #F5EBDD;">
-                                <h3>Network Administration</h3>
-                                <p>it.lanzar.me</p>
-                            </a>
-                            <a href="https://it.lanzar.me" class="card-placeholder" style="background-image: linear-gradient(rgba(16, 42, 67, 0.7), rgba(16, 42, 67, 0.7)), url('assets/city/lanzar-hq.jpg'); background-size: cover; background-position: center; border: 1px solid #E2B84D; color: #F5EBDD;">
-                                <h3>Server Monitoring</h3>
-                                <p>it.lanzar.me</p>
-                            </a>
+                            <!-- Managed IT / Tech Services -->
+                            <div style="background: rgba(16, 42, 67, 0.04); border: 2px solid var(--color-secondary); border-radius: 12px; padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; flex-wrap: wrap;">
+                                        <div>
+                                            <span style="display: inline-block; background: var(--color-secondary); color: #ffffff; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; margin-bottom: 0.5rem;">
+                                                ● ONBOARDING &amp; SUPPORT
+                                            </span>
+                                            <h3 style="font-size: 1.85rem; margin: 0; color: var(--color-navy);">Managed IT &amp; Tech Services</h3>
+                                            <p style="font-size: 1rem; font-weight: 700; color: var(--color-secondary); margin: 0.25rem 0 0 0;">Infrastructure, Network Admin &amp; Proactive Support</p>
+                                        </div>
+                                        <a href="https://it.lanzar.me" target="_blank" rel="noopener" class="btn-secondary" style="padding: 0.6rem 1.4rem; font-size: 0.9rem; text-decoration: none; border-color: var(--color-navy); color: var(--color-navy);">
+                                            EXPLORE IT.LANZAR.ME ↗
+                                        </a>
+                                    </div>
+                                    
+                                    <p style="font-size: 1.05rem; line-height: 1.6; color: var(--color-navy); margin-bottom: 1.25rem;">
+                                        Comprehensive technology administration for small and mid-sized businesses. From network configuration and server monitoring to workstation fleet setup and security—we ensure your technology works seamlessly so you can focus on growing.
+                                    </p>
+                                    
+                                    <div style="background: rgba(16, 42, 67, 0.05); border-left: 3px solid var(--color-secondary); padding: 0.75rem 1rem; border-radius: 0 6px 6px 0; margin-bottom: 1.25rem; font-size: 0.9rem; color: #4a5568; line-height: 1.5;">
+                                        <strong>Core Capabilities:</strong> Network architecture, remote server monitoring, cloud infrastructure, workstation management, endpoint backup, and emergency issue resolution.
+                                    </div>
+                                </div>
+                                
+                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.12); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #4a5568;">
+                                    <span>Dedicated IT Services: <a href="https://it.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">it.lanzar.me</a></span>
+                                    <a href="https://it.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-secondary); font-weight: bold; text-decoration: none;">View IT Service Plans →</a>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Free Consultation & Call Scheduling Banner -->
+                        <div style="background: rgba(16, 42, 67, 0.05); border: 2px dashed var(--color-accent); border-radius: 12px; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.25rem;">
+                            <div>
+                                <h3 style="font-size: 1.2rem; margin: 0 0 0.25rem 0; color: var(--color-navy);">Need advice on a web project or business IT setup?</h3>
+                                <p style="margin: 0; font-size: 0.95rem; color: #4a5568;">Book a free mission briefing with Jon—clear direction, honest advice, zero pressure.</p>
+                            </div>
+                            <div style="display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;">
+                                <a href="tel:+15085718819" style="color: var(--color-navy); font-weight: 700; font-size: 0.95rem; text-decoration: none;">📞 (508) 571-8819</a>
+                                <a href="https://lanzar.zohobookings.com/lanzar/#/lanzar" target="_blank" rel="noopener" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.85rem; text-decoration: none;">
+                                    SCHEDULE A CALL ↗
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="innovation" class="content-section" style="background: rgba(245, 235, 221, 0.45);">
+                    <div class="container">
+                        <div style="margin-bottom: 2.5rem;">
+                            <span style="display: inline-block; color: var(--color-secondary); font-family: var(--font-code, monospace); font-size: 0.85rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.5rem;">
+                                Engineering &amp; Research
+                            </span>
+                            <h2>INNOVATION &amp; ACTIVE BUILDS</h2>
+                            <p style="font-size: 1.2rem; max-width: 820px; color: var(--color-navy); opacity: 0.9; line-height: 1.6;">
+                                We build in public. These proprietary platforms and technical collaborations demonstrate the depth of what we engineer—from forensic timeline intelligence to scientific AI models.
+                            </p>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
                             
-                            <!-- Software & AI -->
-                            <a href="https://threadline.lanzar.me" class="card-placeholder" style="background-image: linear-gradient(rgba(16, 42, 67, 0.7), rgba(16, 42, 67, 0.7)), url('assets/services/software-applications.jpg'); background-size: cover; background-position: center; border: 1px solid #E2B84D; color: #F5EBDD;">
-                                <h3>Software & Applications</h3>
-                                <p>threadline.lanzar.me</p>
-                            </a>
-                            <a href="https://pythos.lanzar.me" class="card-placeholder" style="background-image: linear-gradient(rgba(16, 42, 67, 0.7), rgba(16, 42, 67, 0.7)), url('assets/services/pythos.jpg'); background-size: cover; background-position: center 12%; border: 1px solid #E2B84D; color: #F5EBDD;">
-                                <h3>Pythos AI Tutor</h3>
-                                <p>pythos.lanzar.me</p>
-                            </a>
-                            <a href="https://ai.lanzar.me" class="card-placeholder" style="position: relative; background-image: linear-gradient(rgba(16, 42, 67, 0.7), rgba(16, 42, 67, 0.7)), url('assets/services/ai-automation.jpg'); background-size: cover; background-position: center; border: 1px solid #E2B84D; color: #F5EBDD;">
-                                <h3>AI & Automation</h3>
-                                <p>ai.lanzar.me</p>
-                                <span class="badge-coming-soon" style="position: absolute; top: 1rem; right: 1rem; background: var(--color-primary); color: var(--color-cream); padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold;">COMING SOON</span>
-                            </a>
+                            <!-- Threadline -->
+                            <div style="background: #ffffff; border: 1px solid rgba(16, 42, 67, 0.15); border-top: 4px solid var(--color-accent); border-radius: 8px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem;">
+                                        <h3 style="font-size: 1.35rem; margin: 0; color: var(--color-navy);">THREADLINE</h3>
+                                        <span style="font-size: 0.7rem; font-weight: 800; background: var(--color-accent); color: var(--color-navy); padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase;">
+                                            ▲ BUILDING
+                                        </span>
+                                    </div>
+                                    <p style="font-size: 0.85rem; font-weight: 700; color: var(--color-secondary); margin-bottom: 0.75rem;">
+                                        Timeline Intelligence &amp; Data Analysis
+                                    </p>
+                                    <p style="font-size: 0.9rem; line-height: 1.55; color: #4a5568; margin-bottom: 1rem;">
+                                        A local-first communication analysis platform for investigators, attorneys, and researchers that transforms fragmented chat data into structured, chronological timelines using SQLite WAL and FTS5 indexing.
+                                    </p>
+                                </div>
+                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.08); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                                    <a href="https://threadline.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">threadline.lanzar.me ↗</a>
+                                    <span style="color: #718096;">Active Build</span>
+                                </div>
+                            </div>
+                            
+                            <!-- ThermoPredict / WPI -->
+                            <div style="background: #ffffff; border: 1px solid rgba(16, 42, 67, 0.15); border-top: 4px solid var(--color-secondary); border-radius: 8px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem;">
+                                        <h3 style="font-size: 1.35rem; margin: 0; color: var(--color-navy);">ThermoPredict</h3>
+                                        <span style="font-size: 0.7rem; font-weight: 800; background: #e0f2fe; color: #0369a1; padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase;">
+                                            ● RESEARCH
+                                        </span>
+                                    </div>
+                                    <p style="font-size: 0.85rem; font-weight: 700; color: var(--color-secondary); margin-bottom: 0.75rem;">
+                                        Worcester Polytechnic Institute Collaboration
+                                    </p>
+                                    <p style="font-size: 0.9rem; line-height: 1.55; color: #4a5568; margin-bottom: 1rem;">
+                                        AI-driven chemical and thermodynamic property prediction platform developed in partnership with WPI researchers to accelerate chemical engineering workflows and computational modeling.
+                                    </p>
+                                </div>
+                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.08); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                                    <a href="https://predict.wpi.edu" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">predict.wpi.edu ↗</a>
+                                    <span style="color: #718096;">WPI Collaboration</span>
+                                </div>
+                            </div>
+
+                            <!-- Stir My Coffee -->
+                            <div style="background: #ffffff; border: 1px solid rgba(16, 42, 67, 0.15); border-top: 4px solid #b45309; border-radius: 8px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem;">
+                                        <h3 style="font-size: 1.35rem; margin: 0; color: var(--color-navy);">Stir My Coffee</h3>
+                                        <span style="font-size: 0.7rem; font-weight: 800; background: #fef3c7; color: #92400e; padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase;">
+                                            ● LIVE
+                                        </span>
+                                    </div>
+                                    <p style="font-size: 0.85rem; font-weight: 700; color: var(--color-secondary); margin-bottom: 0.75rem;">
+                                        Community-Driven Discovery Platform
+                                    </p>
+                                    <p style="font-size: 0.9rem; line-height: 1.55; color: #4a5568; margin-bottom: 1rem;">
+                                        A lightweight, fast, community-powered ratings and discovery tool helping coffee lovers find consistently excellent coffee shops, built using modern web standards.
+                                    </p>
+                                </div>
+                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.08); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                                    <a href="https://stirmycoffee.com" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">stirmycoffee.com ↗</a>
+                                    <span style="color: #718096;">Live Web App</span>
+                                </div>
+                            </div>
+
+                            <!-- AI & Automation -->
+                            <div style="background: #ffffff; border: 1px solid rgba(16, 42, 67, 0.15); border-top: 4px solid var(--color-primary); border-radius: 8px; padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.75rem;">
+                                        <h3 style="font-size: 1.35rem; margin: 0; color: var(--color-navy);">AI &amp; Automation</h3>
+                                        <span style="font-size: 0.7rem; font-weight: 800; background: #fee2e2; color: #991b1b; padding: 0.2rem 0.5rem; border-radius: 4px; text-transform: uppercase;">
+                                            ● IN PROGRESS
+                                        </span>
+                                    </div>
+                                    <p style="font-size: 0.85rem; font-weight: 700; color: var(--color-secondary); margin-bottom: 0.75rem;">
+                                        Intelligent Agents &amp; Workflow Engines
+                                    </p>
+                                    <p style="font-size: 0.9rem; line-height: 1.55; color: #4a5568; margin-bottom: 1rem;">
+                                        Custom automation pipelines, AI-driven backend integrations, and specialized task agents designed to eliminate repetitive operational toil for modern businesses.
+                                    </p>
+                                </div>
+                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.08); padding-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                                    <a href="https://ai.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">ai.lanzar.me ↗</a>
+                                    <span style="color: #718096;">Coming Soon</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <section id="purpose" class="content-section">
+                    <div class="container">
+                        <div style="margin-bottom: 2.5rem;">
+                            <span style="display: inline-block; color: #2E7D32; font-family: var(--font-code, monospace); font-size: 0.85rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.5rem;">
+                                Purpose &amp; Community
+                            </span>
+                            <h2>GIVING BACK &amp; DEVELOPING BUILDERS</h2>
+                            <p style="font-size: 1.2rem; max-width: 820px; color: var(--color-navy); opacity: 0.9; line-height: 1.6;">
+                                Building technology is what we do for work. Helping people learn to build is what we do for the future. LANZAR invests in educational initiatives that open doors for the next generation of creators.
+                            </p>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem;">
+                            
+                            <!-- Pythos Nonprofit Card -->
+                            <div style="background: rgba(16, 42, 67, 0.04); border: 2px solid #2E7D32; border-radius: 12px; padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                                        <div>
+                                            <span style="display: inline-block; background: #2E7D32; color: #ffffff; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; margin-bottom: 0.5rem;">
+                                                ♥ NONPROFIT INITIATIVE
+                                            </span>
+                                            <h3 style="font-size: 1.75rem; margin: 0; color: var(--color-navy);">PYTHOS</h3>
+                                            <p style="font-size: 0.95rem; font-weight: 700; color: #2E7D32; margin: 0.25rem 0 0 0;">Free AI Math &amp; Physics Tutor</p>
+                                        </div>
+                                        <a href="https://pythos.lanzar.me" target="_blank" rel="noopener" class="btn-primary" style="background-color: #2E7D32; padding: 0.5rem 1.25rem; font-size: 0.85rem; text-decoration: none;">
+                                            LAUNCH PYTHOS ↗
+                                        </a>
+                                    </div>
+                                    
+                                    <p style="font-size: 1.05rem; line-height: 1.6; color: var(--color-navy); margin-bottom: 1.25rem;">
+                                        <strong>The Mission:</strong> Genuinely free, accessible STEM education for students everywhere—no subscriptions, paywalls, or feature locks.
+                                    </p>
+                                    
+                                    <p style="font-size: 0.95rem; line-height: 1.6; color: #4a5568; margin-bottom: 1.25rem;">
+                                        Operated as LANZAR's dedicated nonprofit initiative, Pythos runs on an engineered <strong>$0 AI spending guardrail</strong> and deterministic calculation engines to deliver reliable mathematical assistance at zero cost to families or schools.
+                                    </p>
+                                </div>
+                                
+                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.12); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #4a5568;">
+                                    <span>Web: <a href="https://pythos.lanzar.me" target="_blank" rel="noopener" style="color: #2E7D32; font-weight: bold; text-decoration: underline;">pythos.lanzar.me</a></span>
+                                    <a href="blog.html#free-is-harder-than-it-sounds" style="color: var(--color-secondary); font-weight: bold; text-decoration: none;">Read the Story →</a>
+                                </div>
+                            </div>
+
+                            <!-- Developing Future Developers Card -->
+                            <div style="background: rgba(16, 42, 67, 0.04); border: 2px solid var(--color-accent); border-radius: 12px; padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                                        <div>
+                                            <span style="display: inline-block; background: var(--color-accent); color: var(--color-navy); font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; margin-bottom: 0.5rem;">
+                                                ▲ COMMUNITY OUTREACH
+                                            </span>
+                                            <h3 style="font-size: 1.75rem; margin: 0; color: var(--color-navy);">DEVELOPING BUILDERS</h3>
+                                            <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-secondary); margin: 0.25rem 0 0 0;">Mentorship &amp; Future Web Developers</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <p style="font-size: 1.05rem; line-height: 1.6; color: var(--color-navy); margin-bottom: 1.25rem;">
+                                        <strong>The Vision:</strong> Demystifying technology and teaching real-world web development, software craftsmanship, and problem solving to aspiring builders.
+                                    </p>
+                                    
+                                    <p style="font-size: 0.95rem; line-height: 1.6; color: #4a5568; margin-bottom: 1.25rem;">
+                                        Through open development, community collaboration, and mentorship, we help aspiring developers bridge the gap from curious beginners to confident builders who can shape the digital landscape.
+                                    </p>
+                                </div>
+                                
+                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.12); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #4a5568;">
+                                    <span>Philosophy: <strong>Build In Public</strong></span>
+                                    <a href="mailto:jon@lanzar.me?subject=LANZAR%20Community%20%26%20Education" style="color: var(--color-secondary); font-weight: bold; text-decoration: none;">Get Involved →</a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </section>
@@ -222,99 +459,41 @@
                     </div>
                 </section>
 
-                <section id="projects" class="content-section">
-                    <div class="container">
-                        <h2>CURRENT PROJECTS</h2>
-                        <p style="font-size: 1.2rem; margin-bottom: 2.5rem; max-width: 800px; color: var(--color-navy); opacity: 0.9;">
-                            What we're actively building at LANZAR. We believe in building useful, ambitious software in the open—creating practical tools that solve real problems.
+                <section id="contact" class="content-section cta-section" style="background: rgba(16, 42, 67, 0.85); color: var(--color-cream);">
+                    <div class="container" style="max-width: 850px; text-align: center;">
+                        <h2 style="color: var(--color-cream); text-shadow: 0 2px 10px rgba(0,0,0,0.5); font-size: 2.75rem; margin-bottom: 1rem; letter-spacing: -0.5px;">READY TO BUILD SOMETHING?</h2>
+                        <p style="font-size: 1.25rem; margin-bottom: 2.5rem; line-height: 1.6; color: #ffffff; text-shadow: 0 1px 4px rgba(0,0,0,0.6); max-width: 680px; margin-left: auto; margin-right: auto; font-weight: 500;">
+                            Whether you need custom web development, digital applications, or reliable managed IT support for your business—let's make it real.
                         </p>
                         
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem;">
-                            
-                            <!-- Pythos Card -->
-                            <div style="background: rgba(16, 42, 67, 0.04); border: 2px solid var(--color-secondary); border-radius: 12px; padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-                                        <div>
-                                            <span style="display: inline-block; background: #2E7D32; color: #ffffff; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; margin-bottom: 0.5rem;">
-                                                ● LIVE & IN ACTIVE DEVELOPMENT
-                                            </span>
-                                            <h3 style="font-size: 1.75rem; margin: 0; color: var(--color-navy);">PYTHOS</h3>
-                                            <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-primary); margin: 0.25rem 0 0 0;">AI Mathematics & Physics Tutor</p>
-                                        </div>
-                                        <a href="https://pythos.lanzar.me" target="_blank" rel="noopener" class="btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; text-decoration: none;">
-                                            LAUNCH PYTHOS ↗
-                                        </a>
-                                    </div>
-                                    
-                                    <p style="font-size: 1.05rem; line-height: 1.6; color: var(--color-navy); margin-bottom: 1.25rem;">
-                                        <strong>The Mission:</strong> Free, genuinely accessible mathematics and physics help for students—without paywalls, subscriptions, or feature locks.
-                                    </p>
-                                    
-                                    <p style="font-size: 0.95rem; line-height: 1.6; color: #4a5568; margin-bottom: 1rem;">
-                                        <strong>Where We Are:</strong> Pythos is live and actively assisting students. We've engineered a rigorous <strong>$0 AI spending guardrail</strong> so the system operates free-only, seamlessly falling back across providers without unexpected cloud bills.
-                                    </p>
-                                    
-                                    <p style="font-size: 0.95rem; line-height: 1.6; color: #4a5568; margin-bottom: 1.5rem;">
-                                        <strong>What's Next:</strong> Developing a purpose-built educational reasoning brain, hybrid deterministic math engines to verify calculations, and exploring educational grants and school partnerships to ensure it remains permanently free.
-                                    </p>
-                                </div>
-                                
-                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.12); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #4a5568;">
-                                    <span>Web: <a href="https://pythos.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">pythos.lanzar.me</a></span>
-                                    <a href="blog.html#free-is-harder-than-it-sounds" style="color: var(--color-secondary); font-weight: bold; text-decoration: none;">Read the Story →</a>
-                                </div>
-                            </div>
-                            
-                            <!-- Threadline Card -->
-                            <div style="background: rgba(16, 42, 67, 0.04); border: 2px solid var(--color-accent); border-radius: 12px; padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; position: relative;">
-                                <div>
-                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-                                        <div>
-                                            <span style="display: inline-block; background: var(--color-accent); color: var(--color-navy); font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; margin-bottom: 0.5rem;">
-                                                ▲ UNDER ACTIVE CONSTRUCTION
-                                            </span>
-                                            <h3 style="font-size: 1.75rem; margin: 0; color: var(--color-navy);">THREADLINE</h3>
-                                            <p style="font-size: 0.95rem; font-weight: 700; color: var(--color-secondary); margin: 0.25rem 0 0 0;">Communication Intelligence & Timeline Analysis</p>
-                                        </div>
-                                        <a href="https://threadline.lanzar.me" target="_blank" rel="noopener" class="btn-secondary" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; text-decoration: none; border-color: var(--color-navy); color: var(--color-navy);">
-                                            PREVIEW ↗
-                                        </a>
-                                    </div>
-                                    
-                                    <p style="font-size: 1.05rem; line-height: 1.6; color: var(--color-navy); margin-bottom: 1.25rem;">
-                                        <strong>The Mission:</strong> A local-first communication analysis platform built for professionals (investigators, attorneys, researchers) that transforms fragmented conversational data into structured, chronological timelines.
-                                    </p>
-                                    
-                                    <p style="font-size: 0.95rem; line-height: 1.6; color: #4a5568; margin-bottom: 1rem;">
-                                        <strong>Where We Are:</strong> Core local SQLite database architecture with WAL mode and FTS5 full-text search is operational. Parsers for SMS Backup & Restore XML and HTML conversation exports are built.
-                                    </p>
-                                    
-                                    <p style="font-size: 0.95rem; line-height: 1.6; color: #4a5568; margin-bottom: 1.5rem;">
-                                        <strong>What's Next:</strong> Expanding multi-format message ingestion (Messenger, WhatsApp, Signal, and email formats), polishing the interactive timeline UI, and readying public testing.
-                                    </p>
-                                </div>
-                                
-                                <div style="border-top: 1px solid rgba(16, 42, 67, 0.12); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: #4a5568;">
-                                    <span>Web: <a href="https://threadline.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: bold; text-decoration: underline;">threadline.lanzar.me</a></span>
-                                    <span style="color: #718096; font-weight: 600;">Status: Construction</span>
-                                </div>
-                            </div>
-
+                        <div class="cta-actions" style="display: flex; justify-content: center; gap: 1.25rem; flex-wrap: wrap; margin-bottom: 2.25rem; align-items: center;">
+                            <a href="https://lanzar.zohobookings.com/lanzar/#/lanzar" target="_blank" rel="noopener" class="btn-primary btn-large" style="text-decoration: none; font-size: 1.15rem; font-weight: 800; box-shadow: 0 4px 16px rgba(244, 107, 69, 0.45);">
+                                SCHEDULE A CALL ↗
+                            </a>
+                            <a href="mailto:jon@lanzar.me" class="btn-secondary btn-large" style="border: 2px solid var(--color-cream); color: #ffffff; background: rgba(255, 255, 255, 0.1); font-size: 1.15rem; font-weight: 800; text-decoration: none;">
+                                SEND AN EMAIL
+                            </a>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; font-size: 1.05rem; color: #ffffff; font-weight: 700; margin-bottom: 2rem; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">
+                            <span>📞 Direct: <a href="tel:+15085718819" style="color: var(--color-accent); font-weight: 800; text-decoration: underline;">(508) 571-8819</a></span>
+                            <span style="opacity: 0.6;">•</span>
+                            <span style="color: var(--color-accent);">✓ Veteran Owned</span>
+                            <span style="opacity: 0.6;">•</span>
+                            <span>✓ Free Consultation</span>
+                            <span style="opacity: 0.6;">•</span>
+                            <span>✓ Fixed Project Pricing</span>
+                        </div>
+                        
+                        <div style="border-top: 1px solid rgba(245, 235, 221, 0.3); padding-top: 1.5rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: 0.95rem;">
+                            <a href="https://web.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-cream); text-decoration: underline; font-weight: 700;">Web Development Studio (web.lanzar.me)</a>
+                            <span style="opacity: 0.6; color: var(--color-cream);">•</span>
+                            <a href="https://it.lanzar.me" target="_blank" rel="noopener" style="color: var(--color-cream); text-decoration: underline; font-weight: 700;">Managed IT Services (it.lanzar.me)</a>
                         </div>
                     </div>
                 </section>
-                
-                <section id="contact" class="content-section cta-section">
-                    <div class="container">
-                        <h2>READY TO BUILD SOMETHING?</h2>
-                        <p>Let's make the future a little less imaginary.</p>
-                        <div class="cta-actions">
-                            <a href="mailto:jon@lanzar.me" class="btn-primary btn-large">TALK TO LANZAR</a>
-                        </div>
-                    </div>
-                </section>
-            </main>
+            
+</main>
         </div>
     </div>
 
