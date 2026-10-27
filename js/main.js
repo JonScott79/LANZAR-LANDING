@@ -233,7 +233,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
 
             if (response.ok && data.success) {
-                feedback.textContent = data.message || 'Transmission confirmed! Welcome aboard the LANZAR Dispatch.';
+                feedback.innerHTML = `
+                    <div style="margin-bottom: 0.75rem; font-weight: bold;">
+                        ${data.message || 'Transmission confirmed! Welcome aboard the LANZAR Dispatch.'}
+                    </div>
+                    <div class="dispatch-id-invite">
+                        <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #102A43; font-weight: 600;">
+                            Want to get more from LANZAR?
+                        </p>
+                        <a href="https://auth.lanzar.me" target="_blank" rel="noopener" class="btn-primary" style="display: inline-block; padding: 0.5rem 1.25rem; font-size: 0.85rem; text-decoration: none;">
+                            CREATE YOUR LANZAR ID &rarr;
+                        </a>
+                    </div>
+                `;
                 feedback.className = 'dispatch-feedback success';
                 form.reset();
                 if (emailInput) emailInput.disabled = true;
