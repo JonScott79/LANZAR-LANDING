@@ -102,3 +102,154 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// =====================================
+// LANZAR Dispatch Subscription Modal
+// =====================================
+document.addEventListener('DOMContentLoaded', () => {
+    const backdrop = document.getElementById('dispatch-modal-backdrop');
+    const modal = document.getElementById('dispatch-modal');
+    const closeBtn = document.getElementById('dispatch-modal-close');
+    const form = document.getElementById('dispatch-form');
+    const emailInput = document.getElementById('dispatch-email');
+    const hpInput = document.getElementById('dispatch-hp');
+    const submitBtn = document.getElementById('dispatch-submit-btn');
+    const submitText = document.getElementById('dispatch-submit-text');
+    const feedback = document.getElementById('dispatch-feedback');
+    const openBtns = document.querySelectorAll('.open-dispatch-btn');
+
+    let lastFocusedElement = null;
+
+    if (!backdrop || !form) return;
+
+    // Determine API Base URL
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    const apiBaseUrl = isLocal ? 'http://localhost:3001' : 'https://api.tickets.lanzar.me';
+
+    function openModal(triggerElement) {
+        lastFocusedElement = triggerElement;
+        backdrop.style.display = 'flex';
+        // Force reflow for CSS opacity transition
+        void backdrop.offsetWidth;
+        backdrop.classList.add('is-open');
+        backdrop.setAttribute('aria-hidden', 'false');
+        
+        // Reset state
+        feedback.textContent = '';
+        feedback.className = 'dispatch-feedback';
+        
+        // Focus email input
+        setTimeout(() => {
+            if (emailInput) emailInput.focus();
+        }, 50);
+
+        document.addEventListener('keydown', handleKeyDown);
+    }
+
+    function closeModal() {
+        backdrop.classList.remove('is-open');
+        backdrop.setAttribute('aria-hidden', 'true');
+        
+        setTimeout(() => {
+            backdrop.style.display = 'none';
+        }, 250);
+
+        document.removeEventListener('keydown', handleKeyDown);
+
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+            lastFocusedElement.focus();
+        }
+    }
+
+    function handleKeyDown(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    }
+
+    // Attach open triggers
+    openBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal(btn);
+        });
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeModal();
+        });
+    }
+
+    // Close when clicking background outside modal card
+    backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) {
+            closeModal();
+        }
+    });
+
+    // Handle asynchronous form submission
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        feedback.textContent = '';
+        feedback.className = 'dispatch-feedback';
+
+        // Honeypot bot protection check
+        if (hpInput && hpInput.value.trim() !== '') {
+            feedback.textContent = 'Transmission confirmed! Welcome aboard the LANZAR Dispatch.';
+            feedback.className = 'dispatch-feedback success';
+            form.reset();
+            return;
+        }
+
+        const email = emailInput ? emailInput.value.trim() : '';
+
+        // Basic client-side email format validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+            feedback.textContent = 'Please enter a valid email address.';
+            feedback.className = 'dispatch-feedback error';
+            if (emailInput) emailInput.focus();
+            return;
+        }
+
+        // Submitting state
+        if (submitBtn) submitBtn.disabled = true;
+        if (submitText) submitText.textContent = 'TRANSMITTING...';
+
+        try {
+            const response = await fetch(`${apiBaseUrl}/api/newsletter/subscribe`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    source: 'homepage'
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                feedback.textContent = data.message || 'Transmission confirmed! Welcome aboard the LANZAR Dispatch.';
+                feedback.className = 'dispatch-feedback success';
+                form.reset();
+                if (emailInput) emailInput.disabled = true;
+                if (submitBtn) submitBtn.style.display = 'none';
+            } else {
+                feedback.textContent = data.error || 'Unable to join the transmission. Please try again.';
+                feedback.className = 'dispatch-feedback error';
+                if (submitBtn) submitBtn.disabled = false;
+                if (submitText) submitText.textContent = 'JOIN THE TRANSMISSION';
+            }
+        } catch (error) {
+            console.error('[DISPATCH ERROR]', error);
+            feedback.textContent = 'Transmission interrupted. Please check your connection and try again.';
+            feedback.className = 'dispatch-feedback error';
+            if (submitBtn) submitBtn.disabled = false;
+            if (submitText) submitText.textContent = 'JOIN THE TRANSMISSION';
+        }
+    });
+});

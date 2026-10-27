@@ -117,3 +117,181 @@ h2 {
     margin-bottom: 1.5rem;
     letter-spacing: -1px;
 }
+
+/* =====================================
+   LANZAR Dispatch Modal (Atomic Age)
+===================================== */
+.dispatch-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.dispatch-modal-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dispatch-modal {
+    position: relative;
+    background-color: #FAF6F0;
+    color: #102A43;
+    width: 100%;
+    max-width: 480px;
+    border: 2px solid var(--color-accent, #E2B84D);
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 20px rgba(226, 184, 77, 0.2);
+    padding: 2.5rem 2rem 2rem 2rem;
+    box-sizing: border-box;
+    text-align: center;
+    transform: scale(0.95);
+    transition: transform 0.25s ease;
+}
+
+.dispatch-modal-backdrop.is-open .dispatch-modal {
+    transform: scale(1);
+}
+
+.dispatch-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: #102A43;
+    opacity: 0.6;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.dispatch-modal-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.dispatch-insignia {
+    font-size: 2rem;
+    color: var(--color-primary, #F46B45);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.dispatch-title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #102A43;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+}
+
+.dispatch-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: #102A43;
+    background-color: var(--color-accent, #E2B84D);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+}
+
+.dispatch-copy {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #334E68;
+    margin: 0 0 1.75rem 0;
+}
+
+.dispatch-input-group {
+    margin-bottom: 1rem;
+}
+
+.dispatch-input {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    font-size: 1.05rem;
+    font-family: inherit;
+    border: 2px solid #CBD5E1;
+    border-radius: 50px;
+    background-color: #FFFFFF;
+    color: #102A43;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.dispatch-input:focus {
+    outline: none;
+    border-color: var(--color-primary, #F46B45);
+    box-shadow: 0 0 0 3px rgba(244, 107, 69, 0.25);
+}
+
+.dispatch-submit-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    font-size: 1.05rem;
+}
+
+.dispatch-feedback {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    min-height: 1.5rem;
+}
+
+.dispatch-feedback.success {
+    color: #0B69A3;
+    background: rgba(42, 114, 143, 0.1);
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid rgba(42, 114, 143, 0.3);
+}
+
+.dispatch-feedback.error {
+    color: #D32F2F;
+    background: rgba(211, 47, 47, 0.1);
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid rgba(211, 47, 47, 0.3);
+}
+
+.dispatch-footer-note {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(16, 42, 67, 0.1);
+    font-size: 0.8rem;
+    color: #627D98;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dispatch-modal-backdrop,
+    .dispatch-modal {
+        transition: none !important;
+        transform: none !important;
+    }
+}
