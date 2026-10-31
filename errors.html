@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Error Telemetry & Station Diagnostic | LANZAR</title>
+  <meta name="description" content="Explore LANZAR's full suite of Atomic Age error pages featuring Mina, Rusty, Pete, Stella, Penny, and Pythos." />
+  <link rel="icon" type="image/svg+xml" href="assets/svg/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/error-page.css" />
+  <style>
+    .controls-deck {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px;
+      background: rgba(13, 23, 34, 0.85);
+      border: 1px solid var(--bezel-border);
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-code-tab {
+      background: rgba(19, 34, 48, 0.9);
+      border: 1px solid var(--bezel-border);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-code-tab:hover {
+      background: rgba(30, 52, 74, 0.95);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .btn-code-tab.active {
+      background: var(--active-theme, var(--theme-mina));
+      border-color: #ffffff;
+      color: #ffffff;
+      box-shadow: 0 0 16px var(--active-glow, var(--theme-mina-glow));
+    }
+
+    .direct-link-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .direct-link-bar a {
+      color: var(--retro-teal-bright);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="crt-scanlines" aria-hidden="true"></div>
+
+  <div class="error-viewport">
+    <header class="error-header" role="banner">
+      <a href="index.html" class="brand-link" title="LANZAR Mothership">
+        <img src="assets/svg/logo.svg" alt="LANZAR" class="brand-logo" style="height: 38px;" />
+      </a>
+      <div class="header-status-badge">
+        <span class="pulse-red" aria-hidden="true"></span>
+        <span id="headerProtocol">DIAGNOSTIC SIMULATOR // ALL CODES</span>
+      </div>
+    </header>
+
+    <!-- Selector Deck -->
+    <nav class="controls-deck" aria-label="Error Code Switcher">
+      <button class="btn-code-tab active" data-code="404" type="button">
+        <span>404: Mina</span>
+      </button>
+      <button class="btn-code-tab" data-code="500" type="button">
+        <span>500: Rusty</span>
+      </button>
+      <button class="btn-code-tab" data-code="403" type="button">
+        <span>403: Pete</span>
+      </button>
+      <button class="btn-code-tab" data-code="401" type="button">
+        <span>401: Stella</span>
+      </button>
+      <button class="btn-code-tab" data-code="400" type="button">
+        <span>400: Pete</span>
+      </button>
+      <button class="btn-code-tab" data-code="502" type="button">
+        <span>502: Penny</span>
+      </button>
+      <button class="btn-code-tab" data-code="503" type="button">
+        <span>503: Rusty</span>
+      </button>
+      <button class="btn-code-tab" data-code="504" type="button">
+        <span>504: Penny</span>
+      </button>
+      <button class="btn-code-tab" data-code="418" type="button">
+        <span>418: Mina</span>
+      </button>
+    </nav>
+
+    <!-- Interactive Stage -->
+    <main class="stage-container" id="stageContainer" role="main">
+      <div class="character-podium">
+        <div class="character-halo" id="charHalo" style="background: radial-gradient(circle, var(--theme-mina) 0%, transparent 70%);"></div>
+        <div class="character-art-wrapper">
+          <img id="charImg" src="assets/characters/Mina/mina-001.png" alt="Mina holding error sign" class="character-img" />
+          <div class="sign-clamp-attachment" aria-hidden="true">
+            <div class="clamp-bracket"></div>
+            <div class="clamp-bracket"></div>
+          </div>
+        </div>
+      </div>
+
+      <article class="held-sign-board" id="heldSignBoard" aria-label="Error Notice">
+        <div class="sign-chains" aria-hidden="true">
+          <div class="chain-link"></div>
+          <div class="chain-link"></div>
+        </div>
+        <div class="screw screw-tl" aria-hidden="true"></div>
+        <div class="screw screw-tr" aria-hidden="true"></div>
+        <div class="screw screw-bl" aria-hidden="true"></div>
+        <div class="screw screw-br" aria-hidden="true"></div>
+
+        <div class="sign-marquee-top">
+          <span class="sign-badge" id="signBadge">✦ ORBITAL DEVIATION ✦</span>
+          <div class="sign-telemetry" id="signTelemetry">SECTOR: <span>UNKNOWN_COORDINATES</span></div>
+        </div>
+
+        <div class="error-code-marquee">
+          <div class="error-code-num" id="signCode">404</div>
+          <div class="error-code-label" id="signLabel">Page Lost in Orbit</div>
+        </div>
+
+        <div class="character-speech-bubble">
+          <div class="speech-speaker-tag" id="speakerTag">
+            <span>✨ MINA SAYS:</span>
+          </div>
+          <p class="speech-quote" id="speechText">
+            "Oopsie! Did someone bump the hyperdrive thrusters without telling me? ✨ We searched the entire star chart, but this sector doesn't exist! Don't worry, darling—grab my hand and let's jump back to the Mothership before Pete notices our fuel consumption!"
+          </p>
+        </div>
+
+        <div class="sign-actions">
+          <a href="index.html" class="btn-error-primary" id="btnActionPrimary">
+            <span>🚀 Return Home</span>
+          </a>
+          <a href="404.html" class="btn-error-secondary" id="btnDedicatedLink">
+            <span>🔗 Open Dedicated Page</span>
+          </a>
+          <a href="https://pythos.lanzar.me/" class="btn-error-pythos" title="Launch Pythos Socratic Math & Physics Tutor">
+            <span>📐 Go to Pythos</span>
+          </a>
+        </div>
+      </article>
+    </main>
+
+    <div class="direct-link-bar">
+      <span>Dedicated Error Endpoint:</span>
+      <a href="404.html" id="dedicatedAnchor">lanzar.me/404.html</a>
+    </div>
+
+    <footer class="error-footer" role="contentinfo">
+      <div>&copy; 2026 LANZAR. All rights reserved. • Three Minds. One Mission.</div>
+      <ul class="error-footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://pythos.lanzar.me/">Pythos</a></li>
+        <li><a href="https://ai.lanzar.me/">Lanzar AI</a></li>
+        <li><a href="errors.html">All Error Codes</a></li>
+      </ul>
+    </footer>
+  </div>
+
+  <script>
+    const ERRORS = {
+      404: {
+        code: "404",
+        label: "Page Lost in Orbit",
+        badge: "✦ ORBITAL TRAJECTORY LOST ✦",
+        telemetry: "SECTOR: <span>UNKNOWN_COORDINATES</span>",
+        speaker: "✨ MINA SAYS:",
+        quote: '"Oopsie! Did someone bump the hyperdrive thrusters without telling me? ✨ We searched the entire star chart, but this sector doesn\'t exist! Don\'t worry, darling—grab my hand and let\'s jump back to the Mothership before Pete notices our fuel consumption!"',
+        characterImg: "assets/characters/Mina/mina-001.png",
+        theme: "var(--theme-mina)",
+        glow: "var(--theme-mina-glow)",
+        file: "404.html"
+      },
+      500: {
+        code: "500",
+        label: "Internal Station Malfunction",
+        badge: "⚠️ REACTOR OVERHEAT ⚠️",
+        telemetry: "SUBSYSTEM: <span>VACUUM_TUBE_BANK_7</span>",
+        speaker: "🤖 RUSTY REPORTS:",
+        quote: '"CLANK! BZZT! Great Scott—a vacuum tube in the primary power grid just blew its cathode! Sparks are flying everywhere, but don\'t panic! I\'ve already swapped in a heavy-duty ceramic replacement and my cooling fans are spinning up. Give me sixty seconds and refresh the line!"',
+        characterImg: "assets/characters/Rusty/rusty-001.png",
+        theme: "var(--theme-rusty)",
+        glow: "var(--theme-rusty-glow)",
+        file: "500.html"
+      },
+      403: {
+        code: "403",
+        label: "Restricted Command Vault",
+        badge: "🔒 CLEARANCE DENIED 🔒",
+        telemetry: "AIRLOCK: <span>LEVEL_5_CLEARANCE_REQUIRED</span>",
+        speaker: "🛠️ PETER (PETE) VANCE:",
+        quote: '"Hold it right there. This sub-deck houses station propulsion controls and encrypted flight logs. Your atmospheric badge lacks clearance for Level-5 sectors. Step back through the bulkhead before the automated security clamp engages."',
+        characterImg: "assets/characters/Peter/peter-pete-prototype.png",
+        theme: "var(--theme-pete)",
+        glow: "var(--theme-pete-glow)",
+        file: "403.html"
+      },
+      401: {
+        code: "401",
+        label: "Station Identity Required",
+        badge: "🪪 BADGE SCAN FAILED 🪪",
+        telemetry: "SECURITY: <span>UNAUTHENTICATED_TRANSPONDER</span>",
+        speaker: "⭐ STELLA - CHIEF OF PROTOCOL:",
+        quote: '"Identity scan incomplete! Your orbital transponder hasn\'t transmitted verified LANZAR credentials. Please present your keycard at the docking gate before proceeding into restricted living quarters."',
+        characterImg: "assets/characters/stella/stella-blue-white-dots-bob.png",
+        theme: "var(--theme-stella)",
+        glow: "var(--theme-stella-glow)",
+        file: "401.html"
+      },
+      400: {
+        code: "400",
+        label: "Malformed Flight Query",
+        badge: "⚡ TELEMETRY CORRUPTED ⚡",
+        telemetry: "PARSER: <span>INVALID_TRANSMISSION_SYNTAX</span>",
+        speaker: "🛠️ PETER (PETE) VANCE:",
+        quote: '"Telemetry syntax error detected. The flight computer cannot parse your transmission packets. Double-check your flight parameters and transmission headers before hailing the station again."',
+        characterImg: "assets/characters/Peter/peter-pete-prototype.png",
+        theme: "var(--theme-pete)",
+        glow: "var(--theme-pete-glow)",
+        file: "400.html"
+      },
+      502: {
+        code: "502",
+        label: "Bad Gateway Relay",
+        badge: "📡 RELAY DROPPED 📡",
+        telemetry: "GATEWAY: <span>UPSTREAM_DISCONNECTED</span>",
+        speaker: "🚀 PENELOPE (PENNY) STERLING:",
+        quote: '"I\'ve been scanning the long-range comms, but the upstream relay satellite dropped offline! It returned an invalid response, so all we\'re picking up is cosmic static. Let\'s reset the transmitter and try again in a few moments!"',
+        characterImg: "assets/characters/Penelope/penelope-penny-prototype.png",
+        theme: "var(--theme-penny)",
+        glow: "var(--theme-penny-glow)",
+        file: "502.html"
+      },
+      503: {
+        code: "503",
+        label: "Service In Maintenance",
+        badge: "⛽ STATION DOCKED ⛽",
+        telemetry: "ENGINES: <span>SCHEDULED_MAINTENANCE</span>",
+        speaker: "🤖 RUSTY MAINTENANCE LOG:",
+        quote: '"WHIRRR! Station is currently docked for scheduled atomic refueling and vacuum tube recalibration! Rusty will have all thrusters back online shortly. Check back in a few minutes!"',
+        characterImg: "assets/characters/Rusty/rusty-001.png",
+        theme: "var(--theme-rusty)",
+        glow: "var(--theme-rusty-glow)",
+        file: "503.html"
+      },
+      504: {
+        code: "504",
+        label: "Gateway Lag Timeout",
+        badge: "⏱️ CHRONO-TIMER EXPIRED ⏱️",
+        telemetry: "ROUNDTRIP: <span>TIMEOUT_EXCEEDED</span>",
+        speaker: "🚀 PENELOPE (PENNY) STERLING:",
+        quote: '"Phew! We beamed the transmission light-years into the deep quadrant, but the remote station took way too long to respond. The chronometer ran out of ticks before the data could dock! Let\'s ping them one more time."',
+        characterImg: "assets/characters/Penelope/penelope-penny-prototype.png",
+        theme: "var(--theme-penny)",
+        glow: "var(--theme-penny-glow)",
+        file: "504.html"
+      },
+      418: {
+        code: "418",
+        label: "I'm a Teapot!",
+        badge: "☕ SHORT & STOUT ☕",
+        telemetry: "PERCOLATOR: <span>HOT_AND_FRESH</span>",
+        speaker: "✨ MINA SAYS:",
+        quote: '"Surprise! You found Error 418! ☕ I may be an Art Director, but I can certainly brew a mean cup of space tea while you\'re here. The server politely refuses to brew coffee because, well... it\'s a teapot! Care for a cup before you head back?"',
+        characterImg: "assets/characters/Mina/mina-001.png",
+        theme: "var(--theme-mina)",
+        glow: "var(--theme-mina-glow)",
+        file: "418.html"
+      }
+    };
+
+    function renderError(code) {
+      const data = ERRORS[code] || ERRORS[404];
+
+      document.documentElement.style.setProperty('--accent-theme', data.theme);
+      document.documentElement.style.setProperty('--accent-glow', data.glow);
+      document.documentElement.style.setProperty('--active-theme', data.theme);
+      document.documentElement.style.setProperty('--active-glow', data.glow);
+
+      document.getElementById('signCode').textContent = data.code;
+      document.getElementById('signLabel').textContent = data.label;
+      document.getElementById('signBadge').textContent = data.badge;
+      document.getElementById('signTelemetry').innerHTML = data.telemetry;
+      document.getElementById('speakerTag').innerHTML = `<span>${data.speaker}</span>`;
+      document.getElementById('speechText').textContent = data.quote;
+      document.getElementById('charImg').src = data.characterImg;
+      document.getElementById('charHalo').style.background = `radial-gradient(circle, ${data.theme} 0%, transparent 70%)`;
+      
+      const btnLink = document.getElementById('btnDedicatedLink');
+      btnLink.href = data.file;
+      btnLink.innerHTML = `<span>🔗 Open ${data.file}</span>`;
+
+      const anchor = document.getElementById('dedicatedAnchor');
+      anchor.href = data.file;
+      anchor.textContent = `lanzar.me/${data.file}`;
+
+      document.querySelectorAll('.btn-code-tab').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-code') === code.toString());
+      });
+    }
+
+    document.querySelectorAll('.btn-code-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.getAttribute('data-code');
+        renderError(code);
+      });
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const queryCode = params.get('code');
+    if (queryCode && ERRORS[queryCode]) {
+      renderError(queryCode);
+    }
+  </script>
+</body>
+</html>

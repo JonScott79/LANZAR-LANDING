@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Lost in Orbit | LANZAR</title>
+  <meta name="description" content="Error 404: Orbital coordinates missing. Mina is on it!" />
+  <link rel="icon" type="image/svg+xml" href="assets/svg/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/error-page.css" />
+  <style>
+    :root {
+      --accent-theme: var(--theme-mina);
+      --accent-glow: var(--theme-mina-glow);
+    }
+  </style>
+</head>
+<body>
+  <div class="crt-scanlines" aria-hidden="true"></div>
+
+  <div class="error-viewport">
+    <header class="error-header" role="banner">
+      <a href="index.html" class="brand-link" title="LANZAR Mothership">
+        <img src="assets/svg/logo.svg" alt="LANZAR" class="brand-logo" style="height: 38px;" />
+      </a>
+      <div class="header-status-badge">
+        <span class="pulse-red" aria-hidden="true"></span>
+        <span>ERROR PROTOCOL // CODE 404</span>
+      </div>
+    </header>
+
+    <main class="stage-container" role="main">
+      <div class="character-podium">
+        <div class="character-halo" style="background: radial-gradient(circle, var(--theme-mina) 0%, transparent 70%);"></div>
+        <div class="character-art-wrapper">
+          <img src="assets/characters/Mina/mina-001.png" alt="Mina holding error sign" class="character-img" />
+          <div class="sign-clamp-attachment" aria-hidden="true">
+            <div class="clamp-bracket"></div>
+            <div class="clamp-bracket"></div>
+          </div>
+        </div>
+      </div>
+
+      <article class="held-sign-board" aria-label="Error 404 Notice">
+        <div class="sign-chains" aria-hidden="true">
+          <div class="chain-link"></div>
+          <div class="chain-link"></div>
+        </div>
+        <div class="screw screw-tl" aria-hidden="true"></div>
+        <div class="screw screw-tr" aria-hidden="true"></div>
+        <div class="screw screw-bl" aria-hidden="true"></div>
+        <div class="screw screw-br" aria-hidden="true"></div>
+
+        <div class="sign-marquee-top">
+          <span class="sign-badge">✦ ORBITAL TRAJECTORY LOST ✦</span>
+          <div class="sign-telemetry">SECTOR: <span>UNKNOWN_COORDINATES</span></div>
+        </div>
+
+        <div class="error-code-marquee">
+          <div class="error-code-num">404</div>
+          <div class="error-code-label">Page Drifted Out of Orbit</div>
+        </div>
+
+        <div class="character-speech-bubble">
+          <div class="speech-speaker-tag">
+            <span>✨ MINA SAYS:</span>
+          </div>
+          <p class="speech-quote">
+            "Oopsie! Did someone bump the hyperdrive thrusters without telling me? ✨ We searched the entire star chart, but this sector doesn't exist! Don't worry, darling—grab my hand and let's jump back to the Mothership before Pete notices our fuel consumption!"
+          </p>
+        </div>
+
+        <div class="sign-actions">
+          <a href="index.html" class="btn-error-primary">
+            <span>🚀 Return to Mothership</span>
+          </a>
+          <a href="https://pythos.lanzar.me/" class="btn-error-pythos" title="Launch Pythos Socratic Math & Physics Tutor">
+            <span>📐 Go to Pythos</span>
+          </a>
+          <button onclick="window.history.back()" class="btn-error-secondary" type="button">
+            <span>↩ Back Up</span>
+          </button>
+        </div>
+      </article>
+    </main>
+
+    <footer class="error-footer" role="contentinfo">
+      <div>&copy; 2026 LANZAR. All rights reserved. • Three Minds. One Mission.</div>
+      <ul class="error-footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://pythos.lanzar.me/">Pythos</a></li>
+        <li><a href="https://ai.lanzar.me/">Lanzar AI</a></li>
+        <li><a href="errors.html">All Error Codes</a></li>
+      </ul>
+    </footer>
+  </div>
+</body>
+</html>
