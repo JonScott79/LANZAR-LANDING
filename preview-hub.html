@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANZAR Mothership — Design Selection Hub</title>
+    <meta name="description" content="Review and select from three distinct redesign directions for the LANZAR Mothership homepage.">
+    <link rel="icon" type="image/svg+xml" href="assets/svg/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-hub: #090e15;
+            --panel-hub: #121c29;
+            --border-hub: #22374d;
+            --orange: #f46b45;
+            --gold: #e2b84d;
+            --teal: #38bdf8;
+            --green: #2ed573;
+            --text-light: #f8fafc;
+            --text-dim: #94a3b8;
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-hub);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOP HUB CONTROLLER */
+        .hub-header {
+            background: rgba(18, 28, 41, 0.98);
+            border-bottom: 2px solid var(--border-hub);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .hub-title-cluster {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .hub-logo {
+            height: 38px;
+            width: auto;
+        }
+        .hub-title {
+            font-family: var(--font-head);
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        .hub-badge {
+            background: rgba(244, 107, 69, 0.15);
+            border: 1px solid var(--orange);
+            color: var(--orange);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+
+        /* CONCEPT SELECTOR TABS */
+        .concept-tabs {
+            display: flex;
+            gap: 8px;
+            background: rgba(9, 14, 21, 0.8);
+            padding: 4px;
+            border-radius: 40px;
+            border: 1px solid var(--border-hub);
+        }
+        .concept-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-dim);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .concept-tab:hover {
+            color: #fff;
+        }
+        .concept-tab.active {
+            background: var(--orange);
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(244, 107, 69, 0.4);
+        }
+        .concept-tab.active.c2 {
+            background: var(--teal);
+            color: #041019;
+            box-shadow: 0 2px 10px rgba(56, 189, 248, 0.4);
+        }
+        .concept-tab.active.c3 {
+            background: var(--gold);
+            color: #102a43;
+            box-shadow: 0 2px 10px rgba(226, 184, 77, 0.4);
+        }
+
+        .hub-view-tools {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .device-toggle-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-hub);
+            color: var(--text-dim);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-mono);
+        }
+        .device-toggle-btn.active, .device-toggle-btn:hover {
+            color: #fff;
+            border-color: var(--teal);
+        }
+        .open-tab-link {
+            color: var(--teal);
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .open-tab-link:hover {
+            text-decoration: underline;
+        }
+
+        /* MAIN PREVIEW CONTAINER */
+        .preview-viewport-frame {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #04080e;
+            position: relative;
+            overflow: hidden;
+            padding: 12px;
+        }
+        .live-iframe {
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--border-hub);
+            border-radius: 8px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+        .live-iframe.mobile-view {
+            width: 414px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            border: 4px solid var(--border-hub);
+            border-radius: 24px;
+        }
+        .live-iframe.tablet-view {
+            width: 820px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            border: 4px solid var(--border-hub);
+            border-radius: 16px;
+        }
+
+        /* BOTTOM BRIEFING BAR */
+        .hub-briefing-bar {
+            background: var(--panel-hub);
+            border-top: 1px solid var(--border-hub);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            z-index: 100;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .briefing-desc {
+            color: var(--text-dim);
+            max-width: 800px;
+        }
+        .briefing-desc strong {
+            color: #fff;
+        }
+        .select-btn {
+            background: var(--green);
+            color: #062b16;
+            font-family: var(--font-body);
+            font-weight: 800;
+            font-size: 0.9rem;
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .select-btn:hover {
+            background: #26b963;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP HUB CONTROLLER -->
+    <header class="hub-header">
+        <div class="hub-title-cluster">
+            <img src="assets/svg/logo.svg" alt="LANZAR" class="hub-logo">
+            <span class="hub-title">DESIGN PREVIEW STUDIO</span>
+            <span class="hub-badge">3 LIVE CANDIDATES</span>
+        </div>
+
+        <div class="concept-tabs">
+            <button class="concept-tab active" onclick="switchConcept('preview-concept-1.html', this, 'c1')">
+                <span>🎪 Concept 1: World's Fair Pavilion</span>
+            </button>
+            <button class="concept-tab" onclick="switchConcept('preview-concept-2.html', this, 'c2')">
+                <span>🛰️ Concept 2: Mission Control &amp; Radar</span>
+            </button>
+            <button class="concept-tab" onclick="switchConcept('preview-concept-3.html', this, 'c3')">
+                <span>📰 Concept 3: Illustrated Magazine</span>
+            </button>
+        </div>
+
+        <div class="hub-view-tools">
+            <button class="device-toggle-btn active" onclick="setDevice('desktop', this)">🖥️ Desktop</button>
+            <button class="device-toggle-btn" onclick="setDevice('tablet', this)">📱 Tablet</button>
+            <button class="device-toggle-btn" onclick="setDevice('mobile', this)">📱 Mobile</button>
+            <a href="preview-concept-1.html" id="openTabBtn" target="_blank" class="open-tab-link">Open Tab ↗</a>
+        </div>
+    </header>
+
+    <!-- LIVE VIEWPORT IFRAME -->
+    <main class="preview-viewport-frame">
+        <iframe src="preview-concept-1.html" id="previewIframe" class="live-iframe" title="Homepage Redesign Preview"></iframe>
+    </main>
+
+    <!-- BOTTOM BRIEFING BAR -->
+    <footer class="hub-briefing-bar">
+        <div class="briefing-desc" id="conceptDesc">
+            <strong>Concept 1: World's Fair Pavilion &amp; Sky-Deck</strong> — Observation deck layout featuring floating character pods, layered Tomorrowland spires, and an illuminated Emergency IT Dispatch Beacon with Boston–Worcester corridor badges.
+        </div>
+        <div>
+            <button class="select-btn" onclick="chooseActiveConcept()">
+                ✓ Choose This Concept For Production
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        const descriptions = {
+            'preview-concept-1.html': '<strong>Concept 1: World\'s Fair Pavilion & Sky-Deck</strong> — High-contrast observation deck layout featuring floating character pods, animated Aero-Speeder D-7, and an illuminated Emergency IT Dispatch Beacon with Boston–Worcester corridor badges.',
+            'preview-concept-2.html': '<strong>Concept 2: Mission Control & Dispatch Console</strong> — Split-screen telemetry console with persistent Emergency IT Hotline triage deck, Central MA radar sweep, and living Tomorrowland city viewport with floating department launch bays.',
+            'preview-concept-3.html': '<strong>Concept 3: Tomorrowland Illustrated Magazine & Promenade</strong> — 1950s Popular Mechanics editorial aesthetic with warm paper canvas, full-width emergency IT repair banner, and character narrative spreads.'
+        };
+
+        let currentUrl = 'preview-concept-1.html';
+
+        function switchConcept(url, btn, cClass) {
+            currentUrl = url;
+            document.getElementById('previewIframe').src = url;
+            document.getElementById('openTabBtn').href = url;
+            document.querySelectorAll('.concept-tab').forEach(b => {
+                b.className = 'concept-tab';
+            });
+            btn.className = `concept-tab active ${cClass}`;
+            document.getElementById('conceptDesc').innerHTML = descriptions[url];
+        }
+
+        function setDevice(device, btn) {
+            const iframe = document.getElementById('previewIframe');
+            document.querySelectorAll('.device-toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (device === 'mobile') {
+                iframe.className = 'live-iframe mobile-view';
+            } else if (device === 'tablet') {
+                iframe.className = 'live-iframe tablet-view';
+            } else {
+                iframe.className = 'live-iframe';
+            }
+        }
+
+        function chooseActiveConcept() {
+            alert(`Great choice! You have selected: ${currentUrl.replace('.html', '').toUpperCase()}.\n\nTell Larry in chat which one you like best and we will wire it up to the production homepage!`);
+        }
+    </script>
+
+</body>
+</html>

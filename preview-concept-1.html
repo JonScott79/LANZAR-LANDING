@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANZAR Mothership — Preview Concept 1: World's Fair Pavilion & Sky-Deck</title>
+    <meta name="description" content="LANZAR Mothership Concept 1 — 1964 World's Fair Pavilion & Sky-Deck with interactive character pods and instant IT emergency dispatch.">
+    <link rel="icon" type="image/svg+xml" href="assets/svg/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-primary: #F46B45; /* Atomic Orange */
+            --color-secondary: #2A728F; /* Sky Teal */
+            --color-accent: #E2B84D; /* Retro Brass Gold */
+            --color-cream: #FDF9F0;
+            --color-navy: #0d1e30;
+            --color-navy-dark: #07101a;
+            --color-it-emergency: #ff4757;
+            --color-it-amber: #ffa502;
+            --color-green: #2ed573;
+            --font-display: 'Bebas Neue', 'Space Grotesk', sans-serif;
+            --font-primary: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-navy-dark);
+            color: var(--color-cream);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* CONCEPT PREVIEW SWITCHER BANNER */
+        .preview-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 2px solid var(--color-accent);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10000;
+            font-size: 0.82rem;
+            font-family: var(--font-mono);
+        }
+        .preview-badge {
+            background: var(--color-accent);
+            color: var(--color-navy);
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+        .preview-switcher {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .preview-switcher a {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #334155;
+            transition: all 0.2s;
+        }
+        .preview-switcher a.active, .preview-switcher a:hover {
+            color: #fff;
+            background: rgba(244, 107, 69, 0.25);
+            border-color: var(--color-primary);
+        }
+
+        /* LIVING TOMORROWLAND BACKGROUND */
+        .living-city-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .layer-sky {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/city/lanzar-city-sky.jpg') center top / cover no-repeat;
+        }
+        .layer-atmo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(255, 230, 160, 0.4) 0%, rgba(244, 107, 69, 0.15) 35%, transparent 70%);
+            mix-blend-mode: screen;
+        }
+        .layer-panorama {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 85%;
+            background: url('assets/city/lanzar-city-panorama.jpg') center bottom / cover no-repeat;
+            opacity: 0.88;
+        }
+        .layer-vignette {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(7, 16, 26, 0.4) 0%, rgba(7, 16, 26, 0.1) 40%, rgba(7, 16, 26, 0.92) 88%);
+        }
+
+        /* FLOATING AERO-SPEEDER */
+        .aero-speeder-hero {
+            position: absolute;
+            top: 120px;
+            right: 5%;
+            width: clamp(240px, 28vw, 440px);
+            z-index: 2;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6));
+            animation: speederHover 7s ease-in-out infinite alternate;
+        }
+        @keyframes speederHover {
+            0% { transform: translateY(0px) rotate(-1.5deg); }
+            50% { transform: translateY(-18px) rotate(1.2deg); }
+            100% { transform: translateY(-8px) rotate(-0.5deg); }
+        }
+
+        /* MAIN CONTENT VIEWPORT */
+        .site-wrapper {
+            position: relative;
+            z-index: 10;
+            margin-top: 42px; /* space for preview bar */
+        }
+
+        /* HEADER / EXPO NAV */
+        .site-header {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header-logo img {
+            height: 52px;
+            width: auto;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+        }
+        .nav-pills {
+            display: flex;
+            gap: 12px;
+            list-style: none;
+            align-items: center;
+            background: rgba(13, 30, 48, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 6px 14px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .nav-pills a {
+            color: var(--color-cream);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .nav-pills a:hover {
+            color: var(--color-accent);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .nav-btn-emergency {
+            background: var(--color-it-emergency) !important;
+            color: #fff !important;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.6);
+            animation: pulseEmergency 2s infinite;
+        }
+        @keyframes pulseEmergency {
+            0%, 100% { box-shadow: 0 0 12px rgba(255, 71, 87, 0.5); }
+            50% { box-shadow: 0 0 24px rgba(255, 71, 87, 0.9); }
+        }
+
+        /* HERO STAGE */
+        .hero-stage {
+            max-width: 1300px;
+            margin: 20px auto 40px;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            align-items: center;
+        }
+        @media (max-width: 960px) {
+            .hero-stage {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hero-statement {
+            background: rgba(13, 30, 48, 0.75);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(226, 184, 77, 0.3);
+            border-radius: 20px;
+            padding: 40px 36px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        .hero-statement::before {
+            content: "1964 TOMORROWLAND EXPOSITION • MOTHERSHIP COMMAND";
+            position: absolute;
+            top: -12px;
+            left: 28px;
+            background: var(--color-accent);
+            color: var(--color-navy);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            padding: 3px 12px;
+            border-radius: 4px;
+        }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 5vw, 4.8rem);
+            line-height: 0.95;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: #fff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        }
+        .hero-title span {
+            color: var(--color-primary);
+        }
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--color-accent);
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        .hero-body {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+            margin-bottom: 28px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-atomic {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--color-primary);
+            color: #fff;
+            font-family: var(--font-primary);
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 14px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            border: 2px solid #ff7a55;
+            box-shadow: 0 8px 20px rgba(244, 107, 69, 0.4);
+            transition: all 0.2s;
+        }
+        .btn-atomic:hover {
+            transform: translateY(-2px);
+            background: #d85430;
+            box-shadow: 0 12px 28px rgba(244, 107, 69, 0.6);
+        }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--color-cream);
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 14px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.2s;
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.16);
+            border-color: #fff;
+        }
+
+        /* EMERGENCY IT DISPATCH BEACON CARD */
+        .it-beacon-card {
+            background: linear-gradient(135deg, rgba(30, 15, 20, 0.92) 0%, rgba(20, 30, 48, 0.95) 100%);
+            border: 3px solid var(--color-it-emergency);
+            border-radius: 20px;
+            padding: 28px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(255, 71, 87, 0.25), inset 0 0 20px rgba(255, 71, 87, 0.1);
+        }
+        .beacon-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            border-bottom: 1px dashed rgba(255, 71, 87, 0.4);
+            padding-bottom: 12px;
+        }
+        .beacon-light {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #ff6b81;
+            letter-spacing: 1px;
+        }
+        .beacon-bulb {
+            width: 14px;
+            height: 14px;
+            background: var(--color-it-emergency);
+            border-radius: 50%;
+            box-shadow: 0 0 14px var(--color-it-emergency);
+            animation: beaconFlash 1.2s infinite alternate;
+        }
+        @keyframes beaconFlash {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+        .beacon-badge {
+            background: rgba(255, 165, 2, 0.2);
+            border: 1px solid var(--color-it-amber);
+            color: var(--color-it-amber);
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .it-character-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .rusty-avatar {
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            border: 3px solid var(--color-it-amber);
+            background: radial-gradient(circle, #2a3b4c 0%, #101c28 100%);
+            object-fit: contain;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+            flex-shrink: 0;
+        }
+        .it-help-heading {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            line-height: 0.95;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .it-help-sub {
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+        .service-zones {
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin: 14px 0;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .zone-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .zone-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .zone-dot.in-person { background: var(--color-green); box-shadow: 0 0 8px var(--color-green); }
+        .zone-dot.remote { background: #38bdf8; box-shadow: 0 0 8px #38bdf8; }
+
+        .hotline-btn-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .hotline-call-btn {
+            background: var(--color-it-emergency);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.92rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ff7a8a;
+            transition: all 0.2s;
+        }
+        .hotline-call-btn:hover {
+            background: #e84118;
+            transform: translateY(-2px);
+        }
+        .hotline-portal-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s;
+        }
+        .hotline-portal-btn:hover {
+            background: rgba(255, 255, 255, 0.16);
+            border-color: #fff;
+        }
+
+        /* SECTION HEADINGS */
+        .expo-section {
+            max-width: 1300px;
+            margin: 60px auto 40px;
+            padding: 0 24px;
+        }
+        .section-header-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 28px;
+            border-bottom: 2px solid rgba(226, 184, 77, 0.3);
+            padding-bottom: 12px;
+        }
+        .section-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .section-headline {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            letter-spacing: 1px;
+            color: #fff;
+            line-height: 1;
+        }
+
+        /* WORLD'S FAIR PAVILIONS GRID */
+        .pavilions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 24px;
+        }
+        .pavilion-card {
+            background: rgba(13, 30, 48, 0.8);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .pavilion-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-accent);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+        }
+        .pavilion-badge {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .badge-green { background: rgba(46, 213, 115, 0.15); color: #2ed573; border: 1px solid #2ed573; }
+        .badge-orange { background: rgba(244, 107, 69, 0.15); color: #f46b45; border: 1px solid #f46b45; }
+        .badge-teal { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid #38bdf8; }
+        .badge-gold { background: rgba(226, 184, 77, 0.15); color: #e2b84d; border: 1px solid #e2b84d; }
+
+        .pavilion-character-dock {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .pavilion-char-img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--color-accent);
+            background: rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+        .pavilion-card:hover .pavilion-char-img {
+            transform: scale(1.1) rotate(2deg);
+        }
+        .pavilion-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .pavilion-lead {
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+        .pavilion-body {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.55;
+            margin-bottom: 18px;
+        }
+        .client-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+        .chip {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            color: #e2e8f0;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .chip:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-color: var(--color-accent);
+        }
+        .pavilion-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pavilion-link {
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .pavilion-link:hover {
+            text-decoration: underline;
+        }
+
+        /* HARDWARE & IT TRIAGE TICKER */
+        .triage-strip {
+            background: rgba(7, 16, 26, 0.9);
+            border-top: 2px solid var(--color-it-amber);
+            border-bottom: 2px solid var(--color-it-amber);
+            padding: 20px 0;
+            margin: 50px 0;
+        }
+        .triage-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .triage-label {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--color-it-amber);
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        .triage-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .triage-pill {
+            background: rgba(255, 165, 2, 0.12);
+            border: 1px solid rgba(255, 165, 2, 0.4);
+            color: #f1f5f9;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* INVENTIONS & ACTIVE BUILDS CAROUSEL */
+        .builds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .build-card {
+            background: rgba(13, 30, 48, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 22px;
+            transition: all 0.2s;
+        }
+        .build-card:hover {
+            border-color: var(--color-primary);
+            background: rgba(13, 30, 48, 0.95);
+        }
+        .build-title {
+            font-size: 1.25rem;
+            color: #fff;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .build-desc {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        /* FOOTER COMMAND DECK */
+        .site-footer {
+            background: rgba(7, 16, 26, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 50px 24px 30px;
+            margin-top: 60px;
+        }
+        .footer-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+        }
+        @media (max-width: 860px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+        .footer-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #fff;
+        }
+        .bottom-bar {
+            max-width: 1300px;
+            margin: 30px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #64748b;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONCEPT PREVIEW SWITCHER -->
+    <div class="preview-bar">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="preview-badge">DESIGN PREVIEW</span>
+            <strong>CONCEPT 1: World's Fair Pavilion & Sky-Deck</strong>
+        </div>
+        <div class="preview-switcher">
+            <a href="preview-hub.html">← Compare All 3</a>
+            <a href="preview-concept-1.html" class="active">Concept 1</a>
+            <a href="preview-concept-2.html">Concept 2</a>
+            <a href="preview-concept-3.html">Concept 3</a>
+        </div>
+    </div>
+
+    <!-- LIVING TOMORROWLAND BACKGROUND -->
+    <div class="living-city-bg">
+        <div class="layer-sky"></div>
+        <div class="layer-atmo"></div>
+        <div class="layer-panorama"></div>
+        <div class="layer-vignette"></div>
+        <img src="assets/vehicles/aero-speeder-hero.png" alt="Aero-Speeder D-7" class="aero-speeder-hero">
+    </div>
+
+    <div class="site-wrapper">
+
+        <!-- HEADER -->
+        <header class="site-header">
+            <div class="header-logo">
+                <a href="/">
+                    <img src="assets/svg/logo.svg" alt="LANZAR Mothership">
+                </a>
+            </div>
+            <nav>
+                <ul class="nav-pills">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#it-emergency" class="nav-btn-emergency">🚨 Need IT Help?</a></li>
+                    <li><a href="#innovations">Innovation</a></li>
+                    <li><a href="#education">Pythos (Free AI)</a></li>
+                    <li><a href="https://portal.lanzar.me">Portal</a></li>
+                    <li><a href="tel:+15085718819" style="color: var(--color-accent);">📞 (508) 571-8819</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- HERO STAGE -->
+        <section class="hero-stage">
+            <div class="hero-statement">
+                <h1 class="hero-title">BUILD <span>TOMORROW</span>.<br>STARTING TODAY.</h1>
+                <p class="hero-subtitle">Bespoke Web Systems • Software Craftsmanship • Proactive IT Administration</p>
+                <p class="hero-body">
+                    Welcome to the LANZAR Mothership. We engineer high-velocity digital platforms for modern businesses, develop public-interest educational AI, and provide dependable, rapid-response tech support for everyday people and small companies across Massachusetts and worldwide.
+                </p>
+                <div class="hero-actions">
+                    <a href="https://web.lanzar.me" class="btn-atomic">Explore Web Studio ↗</a>
+                    <a href="https://it.lanzar.me" class="btn-outline">Managed IT Services →</a>
+                    <a href="https://pythos.lanzar.me" class="btn-outline">Free Math AI (Pythos) →</a>
+                </div>
+            </div>
+
+            <!-- PROMINENT EMERGENCY IT DISPATCH BEACON -->
+            <div class="it-beacon-card" id="it-emergency">
+                <div class="beacon-header">
+                    <div class="beacon-light">
+                        <span class="beacon-bulb"></span>
+                        <span>CITIZENS' &amp; BUSINESS IT EMERGENCY DISPATCH</span>
+                    </div>
+                    <span class="beacon-badge">RAPID RESPONSE</span>
+                </div>
+
+                <div class="it-character-row">
+                    <img src="assets/characters/Rusty/rusty-headshot.png" alt="Rusty - Lead Field Technician" class="rusty-avatar">
+                    <div>
+                        <h2 class="it-help-heading">NEED IT HELP NOW?</h2>
+                        <p class="it-help-sub">Broken computer? Printer refusing to connect? Wi-Fi or server down? Rusty and the LANZAR team are on standby.</p>
+                    </div>
+                </div>
+
+                <div class="service-zones">
+                    <div class="zone-item">
+                        <span class="zone-dot in-person"></span>
+                        <span><strong>In-Person On-Site Visits &amp; House Calls:</strong> Boston–Worcester Corridor (MetroWest, Route 9, I-495, Worcester County).</span>
+                    </div>
+                    <div class="zone-item">
+                        <span class="zone-dot remote"></span>
+                        <span><strong>Global Remote Tele-Support:</strong> Instant secure screen-share triage anywhere in the world.</span>
+                    </div>
+                </div>
+
+                <div class="hotline-btn-row">
+                    <a href="tel:+15085718819" class="hotline-call-btn">
+                        <span>📞 CALL (508) 571-8819</span>
+                        <small style="font-size: 0.72rem; opacity: 0.9; font-weight: 500;">Direct Tech Support Hotline</small>
+                    </a>
+                    <a href="https://it.lanzar.me" class="hotline-portal-btn">
+                        <span>DISPATCH AT IT.LANZAR.ME ↗</span>
+                        <small style="font-size: 0.72rem; opacity: 0.8; font-weight: 400;">Submit Ticket / Diagnostic</small>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- HARDWARE & IT ISSUE TRIAGE TICKER -->
+        <div class="triage-strip">
+            <div class="triage-inner">
+                <div class="triage-label">COMMON ISSUES FIXED TODAY:</div>
+                <div class="triage-tags">
+                    <span class="triage-pill">🖨️ Printer Jammed &amp; Offline</span>
+                    <span class="triage-pill">💻 PC / Mac Crashing or Blue Screen</span>
+                    <span class="triage-pill">📶 Wi-Fi Dead Zones &amp; Mesh Setup</span>
+                    <span class="triage-pill">🦠 Virus &amp; Pop-up Removal</span>
+                    <span class="triage-pill">🛡️ Data Recovery &amp; Backup</span>
+                    <span class="triage-pill">🏢 Small Business Office Fleets</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPOSITION PAVILIONS (SERVICES) -->
+        <section class="expo-section" id="services">
+            <div class="section-header-block">
+                <div>
+                    <span class="section-eyebrow">Modular Service Divisions</span>
+                    <h2 class="section-headline">THE TOMORROWLAND PAVILIONS</h2>
+                </div>
+                <p style="color: #94a3b8; font-size: 0.95rem; max-width: 440px;">
+                    Every division is led by dedicated specialists with zero corporate bloat, clear fixed pricing, and human-first engineering.
+                </p>
+            </div>
+
+            <div class="pavilions-grid">
+                
+                <!-- Web Development Studio -->
+                <div class="pavilion-card">
+                    <div>
+                        <span class="pavilion-badge badge-green">● Accepting New Engagements</span>
+                        <div class="pavilion-character-dock">
+                            <img src="assets/characters/Mina/mina-headshot.png" alt="Mina - Creative & Web Lead" class="pavilion-char-img">
+                            <div>
+                                <h3 class="pavilion-title">Web Development</h3>
+                                <span class="pavilion-lead">Mina • Studio Lead</span>
+                            </div>
+                        </div>
+                        <p class="pavilion-body">
+                            Bespoke web applications, high-performance corporate sites, and customer portals. Hand-crafted for speed, SEO authority, and seamless conversions—zero bloated templates.
+                        </p>
+                        <div class="client-chips">
+                            <a href="https://stirmycoffee.com" target="_blank" class="chip">☕ Stir My Coffee</a>
+                            <a href="https://homenethudson.com" target="_blank" class="chip">🏡 HomeNet Hudson</a>
+                            <a href="https://predict.wpi.edu" target="_blank" class="chip">🧪 ThermoPredict (WPI)</a>
+                        </div>
+                    </div>
+                    <div class="pavilion-footer">
+                        <span style="font-size: 0.8rem; color: #94a3b8;">web.lanzar.me</span>
+                        <a href="https://web.lanzar.me" target="_blank" class="pavilion-link">Explore Web Studio ↗</a>
+                    </div>
+                </div>
+
+                <!-- Managed IT & Tech Support -->
+                <div class="pavilion-card">
+                    <div>
+                        <span class="pavilion-badge badge-orange">● Immediate Dispatch</span>
+                        <div class="pavilion-character-dock">
+                            <img src="assets/characters/Rusty/rusty-headshot.png" alt="Rusty - Managed IT Lead" class="pavilion-char-img">
+                            <div>
+                                <h3 class="pavilion-title">Managed IT Services</h3>
+                                <span class="pavilion-lead">Rusty • Field Operations</span>
+                            </div>
+                        </div>
+                        <p class="pavilion-body">
+                            Reliable technology administration for everyday people and small businesses. From hardware repair and network configuration to cloud server management and endpoint security.
+                        </p>
+                        <div class="client-chips">
+                            <span class="chip">🚗 Boston–Worcester In-Person</span>
+                            <span class="chip">🌐 Remote Tele-Triage</span>
+                            <span class="chip">🔒 Proactive Monitoring</span>
+                        </div>
+                    </div>
+                    <div class="pavilion-footer">
+                        <span style="font-size: 0.8rem; color: #94a3b8;">it.lanzar.me</span>
+                        <a href="https://it.lanzar.me" target="_blank" class="pavilion-link">View IT Service Plans ↗</a>
+                    </div>
+                </div>
+
+                <!-- Software & Digital Applications -->
+                <div class="pavilion-card">
+                    <div>
+                        <span class="pavilion-badge badge-teal">▲ Custom Engineering</span>
+                        <div class="pavilion-character-dock">
+                            <img src="assets/characters/Peter/pete-headshot.png" alt="Pete - Lead Engineer" class="pavilion-char-img">
+                            <div>
+                                <h3 class="pavilion-title">Software Applications</h3>
+                                <span class="pavilion-lead">Pete • Chief Systems Architect</span>
+                            </div>
+                        </div>
+                        <p class="pavilion-body">
+                            Custom business workflows, databases, internal tools, and forensic timeline intelligence. We transform messy spreadsheets into dependable, fast desktop and web software.
+                        </p>
+                        <div class="client-chips">
+                            <a href="https://threadline.lanzar.me" target="_blank" class="chip">🧵 Threadline</a>
+                            <span class="chip">⚡ SQLite WAL &amp; FTS5</span>
+                            <span class="chip">📊 Offline-First Data</span>
+                        </div>
+                    </div>
+                    <div class="pavilion-footer">
+                        <span style="font-size: 0.8rem; color: #94a3b8;">threadline.lanzar.me</span>
+                        <a href="https://threadline.lanzar.me" target="_blank" class="pavilion-link">Discover Software ↗</a>
+                    </div>
+                </div>
+
+                <!-- Operations & Client Concierge -->
+                <div class="pavilion-card">
+                    <div>
+                        <span class="pavilion-badge badge-gold">★ Mission Briefings</span>
+                        <div class="pavilion-character-dock">
+                            <img src="assets/characters/Penelope/penny-headshot.png" alt="Penelope - Client Operations" class="pavilion-char-img">
+                            <div>
+                                <h3 class="pavilion-title">Business Solutions</h3>
+                                <span class="pavilion-lead">Penelope • Operations &amp; Dispatch</span>
+                            </div>
+                        </div>
+                        <p class="pavilion-body">
+                            Transparent scoping, veteran-owned reliability, fixed project pricing, and honest advice. Penelope ensures every mission from initial consult to final launch stays on schedule.
+                        </p>
+                        <div class="client-chips">
+                            <span class="chip">🎖️ Veteran Owned</span>
+                            <span class="chip">📋 Zero Hidden Fees</span>
+                            <span class="chip">🤝 Free Consultations</span>
+                        </div>
+                    </div>
+                    <div class="pavilion-footer">
+                        <span style="font-size: 0.8rem; color: #94a3b8;">Schedule Call</span>
+                        <a href="https://lanzar.zohobookings.com/lanzar/#/lanzar" target="_blank" class="pavilion-link">Book Briefing ↗</a>
+                    </div>
+                </div>
+
+                <!-- Security & Identity -->
+                <div class="pavilion-card">
+                    <div>
+                        <span class="pavilion-badge badge-teal">🛡️ Perimeter Defense</span>
+                        <div class="pavilion-character-dock">
+                            <img src="assets/characters/stella/stella-headshot.png" alt="Stella - Security Lead" class="pavilion-char-img">
+                            <div>
+                                <h3 class="pavilion-title">Identity &amp; Security</h3>
+                                <span class="pavilion-lead">Stella • Cryptographic Officer</span>
+                            </div>
+                        </div>
+                        <p class="pavilion-body">
+                            Zero-trust identity protocols, single-sign-on (SSO), encrypted authentication gateways, and compliance audits for growing organizations and mission-critical portals.
+                        </p>
+                        <div class="client-chips">
+                            <a href="https://auth.lanzar.me" target="_blank" class="chip">🔑 LANZAR Auth</a>
+                            <span class="chip">🔐 Passkey / WebAuthn</span>
+                            <span class="chip">🛡️ Data Sovereignty</span>
+                        </div>
+                    </div>
+                    <div class="pavilion-footer">
+                        <span style="font-size: 0.8rem; color: #94a3b8;">auth.lanzar.me</span>
+                        <a href="https://auth.lanzar.me" target="_blank" class="pavilion-link">Auth Gateway ↗</a>
+                    </div>
+                </div>
+
+                <!-- Education & AI Philanthropy -->
+                <div class="pavilion-card" style="border: 2px solid #2ed573;">
+                    <div>
+                        <span class="pavilion-badge badge-green">♥ Free STEM Non-Profit</span>
+                        <div class="pavilion-character-dock">
+                            <img src="assets/characters/Pythos/pythos-headshot.jpg" alt="Pythos - AI Tutor Mascot" class="pavilion-char-img">
+                            <div>
+                                <h3 class="pavilion-title">Pythos AI Academy</h3>
+                                <span class="pavilion-lead">Pythos • STEM Guardian</span>
+                            </div>
+                        </div>
+                        <p class="pavilion-body">
+                            100% free, deterministic AI math and physics tutoring built with a revolutionary <strong>$0 AI spending guardrail</strong>. No subscriptions, no ads, and no paywalls for students or teachers.
+                        </p>
+                        <div class="client-chips">
+                            <a href="https://pythos.lanzar.me" target="_blank" class="chip">📐 pythos.lanzar.me</a>
+                            <span class="chip">💡 Step-by-Step Solver</span>
+                            <span class="chip">🎓 K-12 &amp; College Math</span>
+                        </div>
+                    </div>
+                    <div class="pavilion-footer">
+                        <span style="font-size: 0.8rem; color: #2ed573;">Version 1.8.52 Active</span>
+                        <a href="https://pythos.lanzar.me" target="_blank" class="pavilion-link" style="color: #2ed573;">Launch Pythos ↗</a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- INVENTIONS & ACTIVE BUILDS -->
+        <section class="expo-section" id="innovations">
+            <div class="section-header-block">
+                <div>
+                    <span class="section-eyebrow">Engineering Lab &amp; Collaborations</span>
+                    <h2 class="section-headline">ACTIVE BUILDS &amp; RESEARCH</h2>
+                </div>
+                <a href="blog.html" class="pavilion-link">Read Engineering Field Notes →</a>
+            </div>
+
+            <div class="builds-grid">
+                <div class="build-card">
+                    <div class="build-title">
+                        <span>Threadline</span>
+                        <span style="font-size: 0.72rem; color: var(--color-accent); font-family: var(--font-mono);">▲ BUILDING</span>
+                    </div>
+                    <p class="build-desc">Forensic communication analysis engine turning chaotic chat logs and records into chronological evidence timelines with millisecond SQLite search.</p>
+                    <a href="https://threadline.lanzar.me" target="_blank" class="pavilion-link">threadline.lanzar.me ↗</a>
+                </div>
+
+                <div class="build-card">
+                    <div class="build-title">
+                        <span>ThermoPredict</span>
+                        <span style="font-size: 0.72rem; color: #38bdf8; font-family: var(--font-mono);">● WPI COLLAB</span>
+                    </div>
+                    <p class="build-desc">Deep-learning physical property prediction system developed in partnership with Worcester Polytechnic Institute researchers for chemical engineering.</p>
+                    <a href="https://predict.wpi.edu" target="_blank" class="pavilion-link">predict.wpi.edu ↗</a>
+                </div>
+
+                <div class="build-card">
+                    <div class="build-title">
+                        <span>Stir My Coffee</span>
+                        <span style="font-size: 0.72rem; color: #2ed573; font-family: var(--font-mono);">● LIVE APP</span>
+                    </div>
+                    <p class="build-desc">Community discovery platform cataloging artisan cafes and bean roasters with zero bloat, lightning speed, and verified local ratings.</p>
+                    <a href="https://stirmycoffee.com" target="_blank" class="pavilion-link">stirmycoffee.com ↗</a>
+                </div>
+
+                <div class="build-card">
+                    <div class="build-title">
+                        <span>LANZAR AI &amp; Agents</span>
+                        <span style="font-size: 0.72rem; color: #ff6b81; font-family: var(--font-mono);">● IN PROGRESS</span>
+                    </div>
+                    <p class="build-desc">Autonomous workflow pipelines, multi-agent pair programming scaffolds, and intelligent backend automations built for lean business teams.</p>
+                    <a href="https://ai.lanzar.me" target="_blank" class="pavilion-link">ai.lanzar.me ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div>
+                    <h3 class="footer-title">LANZAR MOTHERSHIP</h3>
+                    <p style="font-size: 0.92rem; color: #94a3b8; line-height: 1.6; margin-bottom: 16px;">
+                        Engineering modern digital systems, enterprise websites, custom software, and proactive IT infrastructure. Proudly veteran-owned and based in Central Massachusetts.
+                    </p>
+                    <div style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent);">
+                        📞 Hotline: <a href="tel:+15085718819" style="color: inherit; text-decoration: underline;">(508) 571-8819</a><br>
+                        ✉️ Dispatch: <a href="mailto:jon@lanzar.me" style="color: inherit; text-decoration: underline;">jon@lanzar.me</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: #fff; margin-bottom: 14px;">CLIENT SERVICES</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://it.lanzar.me">Need IT Help? (it.lanzar.me)</a></li>
+                        <li><a href="https://web.lanzar.me">Web Development Studio</a></li>
+                        <li><a href="https://threadline.lanzar.me">Software &amp; Applications</a></li>
+                        <li><a href="https://portal.lanzar.me">Customer Portal</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: #fff; margin-bottom: 14px;">RESEARCH &amp; COMM</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://pythos.lanzar.me">Pythos (Free AI Tutor)</a></li>
+                        <li><a href="https://predict.wpi.edu">ThermoPredict (WPI)</a></li>
+                        <li><a href="https://stirmycoffee.com">Stir My Coffee</a></li>
+                        <li><a href="blog.html">The LANZAR Blog</a></li>
+                        <li><a href="https://resume.lanzar.me">Resume &amp; Background</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 1rem; color: #fff; margin-bottom: 14px;">SERVICE TERRITORY</h4>
+                    <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.5; margin-bottom: 10px;">
+                        <strong>In-Person Radius:</strong> Boston, Cambridge, MetroWest, Framingham, Marlborough, Hudson, Worcester, and Worcester County.
+                    </p>
+                    <p style="font-size: 0.88rem; color: #94a3b8; line-height: 1.5;">
+                        <strong>Remote Support:</strong> Nationwide &amp; Worldwide via secure tele-diagnostic session.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bottom-bar">
+                <span>&copy; 2026 LANZAR. Built with Tomorrowland optimism. All rights reserved.</span>
+                <span>Veteran-Owned &amp; Operated • Massachusetts, USA</span>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>

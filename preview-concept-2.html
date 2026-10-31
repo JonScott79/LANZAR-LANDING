@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANZAR Mothership — Preview Concept 2: Atomic Mission Control & Dispatch Console</title>
+    <meta name="description" content="LANZAR Mothership Concept 2 — Mid-century Aerospace Mission Control console with interactive emergency IT triage deck and living panorama telemetry.">
+    <link rel="icon" type="image/svg+xml" href="assets/svg/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Grotesk:wght@400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-bg: #0b1522;
+            --color-console: #102133;
+            --color-panel: #162b42;
+            --color-border: #284b6f;
+            --color-orange: #f46b45;
+            --color-coral: #ff7551;
+            --color-gold: #f5c444;
+            --color-teal: #38bdf8;
+            --color-cyan: #22d3ee;
+            --color-green: #22c55e;
+            --color-alert: #f43f5e;
+            --color-text: #ffffff;
+            --color-text-dim: #cbd5e1;
+            --color-cream: #fbf7ee;
+            --font-mono: 'Share Tech Mono', monospace;
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-main: 'Space Grotesk', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* CONCEPT PREVIEW SWITCHER BANNER */
+        .preview-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #0f172a;
+            border-bottom: 2px solid var(--color-teal);
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10000;
+            font-size: 0.82rem;
+            font-family: var(--font-mono);
+        }
+        .preview-badge {
+            background: var(--color-teal);
+            color: #041019;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        .preview-switcher {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .preview-switcher a {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #334155;
+            transition: all 0.2s;
+        }
+        .preview-switcher a.active, .preview-switcher a:hover {
+            color: #fff;
+            background: rgba(56, 189, 248, 0.25);
+            border-color: var(--color-teal);
+        }
+
+        /* MASTER CONSOLE CONTAINER */
+        .console-container {
+            margin-top: 42px;
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            min-height: calc(100vh - 42px);
+        }
+        @media (max-width: 1024px) {
+            .console-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* LEFT DISPATCH & TELEMETRY CONSOLE */
+        .dispatch-deck {
+            background: linear-gradient(180deg, rgba(16, 36, 56, 0.88) 0%, rgba(10, 24, 38, 0.92) 100%);
+            border-right: 2px solid rgba(245, 196, 68, 0.4);
+            padding: 22px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+            z-index: 20;
+            box-shadow: 10px 0 30px rgba(0,0,0,0.4);
+            overflow-y: auto;
+            backdrop-filter: blur(16px);
+        }
+
+        .console-brand {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.25);
+        }
+        .brand-logo-img {
+            height: 44px;
+            width: auto;
+        }
+        .telemetry-status {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-green);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34, 197, 94, 0.15);
+            padding: 4px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            font-weight: 700;
+        }
+        .pulse-led {
+            width: 8px;
+            height: 8px;
+            background: var(--color-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-green);
+            animation: blink 1.5s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* EMERGENCY IT HOTLINE CONSOLE CARD */
+        .emergency-hud {
+            background: linear-gradient(145deg, rgba(54, 18, 28, 0.6) 0%, rgba(18, 36, 56, 0.65) 100%);
+            border: 2px solid var(--color-alert);
+            border-radius: 14px;
+            padding: 18px 16px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(244, 63, 94, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+        }
+        .emergency-hud-badge {
+            position: absolute;
+            top: -11px;
+            left: 20px;
+            background: var(--color-alert);
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .emergency-hud-title {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: #fff;
+            letter-spacing: 1px;
+            line-height: 1;
+            margin-top: 4px;
+            margin-bottom: 6px;
+        }
+        .emergency-sub {
+            font-size: 0.88rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        /* IT DISPATCH AVATAR */
+        .rusty-dispatch-block {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+        .rusty-hud-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 10px;
+            border: 2px solid var(--color-gold);
+            object-fit: cover;
+            background: #111;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .rusty-hud-info {
+            font-size: 0.82rem;
+            line-height: 1.4;
+        }
+        .rusty-name {
+            font-weight: 800;
+            color: var(--color-gold);
+            font-family: var(--font-mono);
+            display: block;
+        }
+
+        /* RADAR SERVICE RADIUS MAP */
+        .radar-box {
+            background: #09121c;
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: 14px;
+            position: relative;
+            margin-bottom: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+        }
+        .radar-screen {
+            height: 110px;
+            border-radius: 6px;
+            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.15) 0%, rgba(9, 18, 28, 0.95) 75%),
+                        repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(56, 189, 248, 0.1) 20px),
+                        repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(56, 189, 248, 0.1) 20px);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .radar-sweep {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 290deg, rgba(56, 189, 248, 0.08) 310deg, rgba(56, 189, 248, 0.5) 360deg);
+            animation: sweep 4s linear infinite;
+            pointer-events: none;
+            z-index: 2;
+        }
+        @keyframes sweep {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .radar-blip-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: var(--color-gold);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-gold);
+            z-index: 6;
+        }
+        .radar-blip-boston {
+            position: absolute;
+            right: 18%;
+            top: 44%;
+            width: 8px;
+            height: 8px;
+            background: var(--color-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-green);
+            z-index: 5;
+        }
+        .radar-blip-worcester {
+            position: absolute;
+            left: 18%;
+            bottom: 44%;
+            width: 8px;
+            height: 8px;
+            background: var(--color-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--color-green);
+            z-index: 5;
+        }
+        .radar-route {
+            position: absolute;
+            left: 20%;
+            top: 50%;
+            width: 60%;
+            height: 2px;
+            background: dashed rgba(226, 184, 77, 0.5);
+            transform: translateY(-50%) rotate(-8deg);
+            z-index: 4;
+        }
+        .radar-label {
+            position: absolute;
+            font-size: 0.68rem;
+            color: #e2e8f0;
+            z-index: 6;
+            text-shadow: 0 1px 4px #000;
+        }
+        .label-boston { right: 8%; top: 40%; }
+        .label-worcester { left: 8%; bottom: 40%; }
+        .label-metrowest { left: 50%; transform: translateX(-50%); top: 16%; color: var(--color-gold); font-weight: 700; white-space: nowrap; }
+
+        .service-type-pills {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .pill-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dot-green { width: 8px; height: 8px; background: var(--color-green); border-radius: 50%; }
+        .dot-blue { width: 8px; height: 8px; background: var(--color-teal); border-radius: 50%; }
+
+        /* QUICK TRIAGE BUTTONS */
+        .triage-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .triage-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .triage-btn:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: var(--color-teal);
+        }
+
+        /* PRIMARY ACTION BUTTONS */
+        .call-hotline-btn {
+            background: var(--color-alert);
+            color: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .call-hotline-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+        .dispatch-web-link {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .dispatch-web-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #fff;
+        }
+
+        /* RIGHT OBSERVATION VIEWPORT & TELEMETRY DECK */
+        .observation-viewport {
+            position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* FIXED VIEWPORT BACKGROUND */
+        .viewport-skybox {
+            position: fixed;
+            top: 42px;
+            right: 0;
+            width: calc(100vw - 360px);
+            height: calc(100vh - 42px);
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+            background: #18334e;
+        }
+        @media (max-width: 1024px) {
+            .viewport-skybox {
+                width: 100vw;
+            }
+        }
+        .sky-layer {
+            position: absolute;
+            inset: 0;
+            background: url('assets/city/lanzar-city-sky.jpg') center top / cover no-repeat;
+            filter: brightness(1.15) contrast(1.08);
+        }
+        .atmo-layer {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 75% 25%, rgba(255, 230, 160, 0.45) 0%, rgba(244, 107, 69, 0.18) 42%, transparent 72%);
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+        .pano-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 88%;
+            background: url('assets/city/lanzar-city-panorama.jpg') center bottom / cover no-repeat;
+            opacity: 1;
+            filter: saturate(1.22) brightness(1.12);
+        }
+        .vignette-layer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(11, 21, 34, 0.05) 50%, rgba(11, 21, 34, 0.35) 100%);
+            pointer-events: none;
+        }
+
+        /* AMBIENT SKYWAY AERO-SPEEDER (CALM, EVEN, PASSIVE BACKGROUND) */
+        .aero-speeder-ambient {
+            position: absolute;
+            top: 12%;
+            right: 6%;
+            width: clamp(200px, 20vw, 320px);
+            filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.4));
+            animation: ambientSpeederGlide 10s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.85;
+            will-change: transform;
+        }
+        @keyframes ambientSpeederGlide {
+            0% { transform: translateY(0px) rotate(-0.8deg); }
+            50% { transform: translateY(-10px) rotate(0.8deg); }
+            100% { transform: translateY(-4px) rotate(-0.4deg); }
+        }
+
+        /* VIEWPORT CONTENT STREAM */
+        .viewport-content {
+            position: relative;
+            z-index: 10;
+            padding: 24px 36px 60px;
+            max-width: 1280px;
+        }
+
+        /* VIEWPORT HUD NAV */
+        .hud-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(16, 38, 62, 0.5);
+            backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(56, 189, 248, 0.4);
+            border-radius: 14px;
+            padding: 12px 22px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        .hud-nav-links {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+        .hud-nav-links a {
+            color: #f1f5f9;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .hud-nav-links a:hover {
+            color: var(--color-teal);
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+        }
+
+        /* HERO TELEMETRY OVERLAY (EVEN, BALANCED FULL-WIDTH PANEL) */
+        .hero-telemetry-banner {
+            width: 100%;
+            background: linear-gradient(135deg, rgba(16, 40, 64, 0.52) 0%, rgba(10, 26, 44, 0.62) 100%);
+            backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(244, 107, 69, 0.55);
+            border-left: 6px solid var(--color-orange);
+            border-radius: 16px;
+            padding: 36px 36px;
+            margin-bottom: 34px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        .telemetry-tag {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--color-gold);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+        .telemetry-headline {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 4vw, 4.2rem);
+            color: #ffffff;
+            line-height: 1;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+            text-shadow: 0 3px 15px rgba(0,0,0,0.5);
+        }
+        .telemetry-headline span {
+            color: var(--color-orange);
+        }
+        .telemetry-desc {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #f1f5f9;
+            max-width: 820px;
+            margin-bottom: 24px;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+        }
+        .hero-action-cluster {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn-launch {
+            background: var(--color-orange);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.92rem;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 18px rgba(244, 107, 69, 0.45);
+            transition: all 0.2s;
+            border: 1px solid #ff7a55;
+        }
+        .btn-launch:hover {
+            background: #e0532b;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(244, 107, 69, 0.6);
+        }
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1.5px solid rgba(255, 255, 255, 0.35);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            backdrop-filter: blur(8px);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.22);
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* DEPARTMENT MISSION BAYS HEADER & DOCK */
+        .mission-bays-header {
+            background: linear-gradient(90deg, rgba(12, 30, 50, 0.78) 0%, rgba(16, 38, 64, 0.65) 100%);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1.5px solid rgba(56, 189, 248, 0.4);
+            border-left: 5px solid var(--color-teal);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+        .mission-eyebrow {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--color-gold);
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+        }
+        .mission-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3vw, 2.6rem);
+            color: #ffffff;
+            letter-spacing: 1.5px;
+            line-height: 1;
+            margin: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.35);
+        }
+
+        /* DEPARTMENT MISSION BAYS */
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 22px;
+            margin-bottom: 36px;
+        }
+        .mission-bay-card {
+            background: linear-gradient(145deg, rgba(16, 38, 62, 0.42) 0%, rgba(10, 26, 42, 0.52) 100%);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(56, 189, 248, 0.3);
+            border-radius: 14px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+        .mission-bay-card:hover {
+            border-color: var(--color-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.3), 0 0 25px rgba(245, 196, 68, 0.25);
+            background: linear-gradient(145deg, rgba(22, 50, 78, 0.6) 0%, rgba(12, 32, 50, 0.7) 100%);
+        }
+        .bay-char-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .bay-avatar {
+            width: 62px;
+            height: 62px;
+            border-radius: 12px;
+            border: 2px solid var(--color-teal);
+            object-fit: cover;
+            background: #09121c;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+        .mission-bay-card:hover .bay-avatar {
+            transform: scale(1.08) rotate(2deg);
+            border-color: var(--color-gold);
+        }
+        .bay-title {
+            font-size: 1.35rem;
+            color: #fff;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+        .bay-specialist {
+            font-size: 0.82rem;
+            color: var(--color-gold);
+            font-family: var(--font-mono);
+            font-weight: 600;
+        }
+        .bay-text {
+            font-size: 0.94rem;
+            color: #e2e8f0;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .bay-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.88rem;
+        }
+        .bay-link {
+            color: var(--color-teal);
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s;
+        }
+        .bay-link:hover {
+            color: #fff;
+            text-decoration: underline;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+
+        /* COLLABORATIONS & NON-PROFIT BANNER */
+        .lab-showcase {
+            background: linear-gradient(145deg, rgba(16, 38, 62, 0.45) 0%, rgba(10, 26, 42, 0.55) 100%);
+            border: 1.5px solid rgba(245, 196, 68, 0.35);
+            border-radius: 14px;
+            padding: 28px;
+            margin-bottom: 36px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+        }
+        .lab-heading {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 196, 68, 0.25);
+        }
+        .lab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+        }
+        .lab-item {
+            background: rgba(8, 20, 32, 0.42);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 18px;
+            transition: all 0.2s;
+            backdrop-filter: blur(8px);
+        }
+        .lab-item:hover {
+            border-color: var(--color-teal);
+            transform: translateY(-2px);
+        }
+        .lab-item h4 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+        .lab-item p {
+            font-size: 0.86rem;
+            color: #cbd5e1;
+            line-height: 1.55;
+            margin-bottom: 10px;
+        }
+        .lab-link {
+            font-size: 0.82rem;
+            color: var(--color-gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .lab-link:hover {
+            text-decoration: underline;
+        }
+
+        /* CONSOLE FOOTER */
+        .console-footer {
+            background: linear-gradient(145deg, rgba(12, 28, 46, 0.92) 0%, rgba(8, 20, 34, 0.96) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid rgba(56, 189, 248, 0.4);
+            border-top: 4px solid var(--color-gold);
+            border-radius: 14px;
+            padding: 36px 32px 24px;
+            margin-top: 40px;
+            margin-bottom: 24px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr 1.1fr;
+            gap: 28px;
+            margin-bottom: 28px;
+        }
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .footer-col-title {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        }
+        .footer-brand-desc {
+            font-size: 0.86rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin-bottom: 14px;
+        }
+        .footer-link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .footer-link-list li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.86rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .footer-link-list li a:hover {
+            color: var(--color-teal);
+            transform: translateX(3px);
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            margin-bottom: 8px;
+        }
+        .footer-bottom-bar {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: #94a3b8;
+        }
+        .footer-telemetry-led {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--color-teal);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONCEPT PREVIEW SWITCHER -->
+    <div class="preview-bar">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="preview-badge">DESIGN PREVIEW</span>
+            <strong>CONCEPT 2: Atomic Mission Control & Dispatch Console</strong>
+        </div>
+        <div class="preview-switcher">
+            <a href="preview-hub.html">← Compare All 3</a>
+            <a href="preview-concept-1.html">Concept 1</a>
+            <a href="preview-concept-2.html" class="active">Concept 2</a>
+            <a href="preview-concept-3.html">Concept 3</a>
+        </div>
+    </div>
+
+    <!-- MAIN CONSOLE LAYOUT -->
+    <div class="console-container">
+
+        <!-- LEFT PERSISTENT EMERGENCY IT & DISPATCH DECK -->
+        <aside class="dispatch-deck">
+            <div class="console-brand">
+                <a href="/">
+                    <img src="assets/svg/logo.svg" alt="LANZAR" class="brand-logo-img">
+                </a>
+                <div class="telemetry-status">
+                    <span class="pulse-led"></span>
+                    <span>ONLINE • CENTRAL MA</span>
+                </div>
+            </div>
+
+            <!-- EMERGENCY HUD PANEL -->
+            <div class="emergency-hud">
+                <span class="emergency-hud-badge">🚨 IMMEDIATE DISPATCH</span>
+                <h2 class="emergency-hud-title">NEED IT HELP NOW?</h2>
+                <p class="emergency-sub">
+                    Hardware down? Printer frozen? Computer infected or won't boot? Don't stress—get fast, friendly professional support directly from our dispatch team.
+                </p>
+
+                <!-- IT DISPATCH BLOCK -->
+                <div class="rusty-dispatch-block">
+                    <img src="assets/services/service-managed-it.jpg" alt="Managed IT Dispatch" class="rusty-hud-avatar">
+                    <div class="rusty-hud-info">
+                        <span class="rusty-name">LANZAR TECH DISPATCH</span>
+                        <span>Rapid On-Site Diagnostics &amp; Remote Support</span>
+                    </div>
+                </div>
+
+                <!-- MASSACHUSETTS RADAR SCOPE -->
+                <div class="radar-box">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: 700;">
+                        <span>DISPATCH RADAR</span>
+                        <span style="color: var(--color-teal);">35-MILE RADIUS</span>
+                    </div>
+                    <div class="radar-screen">
+                        <div class="radar-sweep"></div>
+                        <div class="radar-route"></div>
+                        <div class="radar-blip-worcester" title="Worcester"></div>
+                        <div class="radar-blip-center" title="LANZAR Central MA HQ"></div>
+                        <div class="radar-blip-boston" title="Boston"></div>
+                        <span class="radar-label label-worcester">Worcester</span>
+                        <span class="radar-label label-metrowest">Rt 9 / I-495 HQ</span>
+                        <span class="radar-label label-boston">Boston</span>
+                    </div>
+
+                    <div class="service-type-pills">
+                        <div class="pill-line">
+                            <span class="dot-green"></span>
+                            <span><strong>In-Person On-Site:</strong> Boston, Worcester, MetroWest (Home &amp; Office visits).</span>
+                        </div>
+                        <div class="pill-line">
+                            <span class="dot-blue"></span>
+                            <span><strong>Remote Screen Support:</strong> Worldwide via secure instant tele-session.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COMMON ISSUE QUICK SELECTOR -->
+                <div style="font-family: var(--font-mono); font-size: 0.72rem; color: #94a3b8; margin-bottom: 6px; font-weight: 700;">
+                    SELECT ISSUE TO CALL DIRECTLY:
+                </div>
+                <div class="triage-selector">
+                    <button class="triage-btn" onclick="window.location.href='tel:+15085718819'">💻 PC / Mac Crash</button>
+                    <button class="triage-btn" onclick="window.location.href='tel:+15085718819'">🖨️ Printer Issue</button>
+                    <button class="triage-btn" onclick="window.location.href='tel:+15085718819'">📶 Wi-Fi / Router</button>
+                    <button class="triage-btn" onclick="window.location.href='tel:+15085718819'">🦠 Virus / Popups</button>
+                </div>
+
+                <!-- HOTLINE ACTION -->
+                <a href="tel:+15085718819" class="call-hotline-btn">
+                    <span>📞 DIAL (508) 571-8819</span>
+                </a>
+            </div>
+
+            <!-- MISSION ASSURANCE -->
+            <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--color-border); border-radius: 10px; padding: 14px; font-size: 0.82rem; line-height: 1.5; color: #94a3b8;">
+                <strong style="color: var(--color-gold); display: block; margin-bottom: 4px;">THE LANZAR GUARANTEE</strong>
+                Veteran-owned and operated. Transparent pricing, no confusing tech jargon, and honest answers on whether repair or upgrade makes financial sense.
+            </div>
+        </aside>
+
+        <!-- RIGHT OBSERVATION VIEWPORT & TELEMETRY DECK -->
+        <main class="observation-viewport">
+            
+            <!-- SKYBOX WITH TOMORROWLAND CITY & PASSIVE AMBIENT AERO-SPEEDER -->
+            <div class="viewport-skybox">
+                <div class="sky-layer"></div>
+                <div class="atmo-layer"></div>
+                <div class="pano-layer"></div>
+                <div class="vignette-layer"></div>
+                <img src="assets/vehicles/aero-speeder-hero.png" alt="Aero-Speeder D-7" class="aero-speeder-ambient">
+            </div>
+
+            <div class="viewport-content">
+
+                <!-- HUD TOP NAVIGATION -->
+                <div class="hud-nav">
+                    <ul class="hud-nav-links">
+                        <li><a href="https://web.lanzar.me">Web Studio</a></li>
+                        <li><a href="https://it.lanzar.me">Managed IT</a></li>
+                        <li><a href="https://threadline.lanzar.me">Software</a></li>
+                        <li><a href="https://pythos.lanzar.me">Pythos (Math AI)</a></li>
+                        <li><a href="blog.html">Field Notes</a></li>
+                        <li><a href="https://portal.lanzar.me">Client Portal</a></li>
+                    </ul>
+                    <a href="https://lanzar.zohobookings.com/lanzar/#/lanzar" target="_blank" style="background: var(--color-gold); color: #000; padding: 6px 14px; border-radius: 6px; font-weight: 800; font-size: 0.82rem; text-decoration: none;">
+                        BOOK A CALL ↗
+                    </a>
+                </div>
+
+                <!-- HERO TELEMETRY BANNER (EVEN & BALANCED) -->
+                <div class="hero-telemetry-banner">
+                    <span class="telemetry-tag">
+                        <span style="color: var(--color-teal);">⚡ TOMORROWLAND FLIGHT DECK</span>
+                        <span style="opacity: 0.5;">•</span>
+                        <span>MOTHERSHIP CENTRAL</span>
+                    </span>
+                    <h1 class="telemetry-headline">BUILD <span>TOMORROW</span>. STARTING TODAY.</h1>
+                    <p class="telemetry-desc">
+                        LANZAR architects bespoke web systems, engineered software applications, and proactive IT infrastructure. Built around real human workflows with modern speed, fun retro-futuristic craftsmanship, and zero corporate bloat.
+                    </p>
+                    <div class="hero-action-cluster">
+                        <a href="https://web.lanzar.me" target="_blank" class="btn-launch">Explore Web Studio ↗</a>
+                        <a href="https://it.lanzar.me" target="_blank" class="btn-ghost">IT Support Plans →</a>
+                        <a href="https://pythos.lanzar.me" target="_blank" class="btn-ghost">Launch Pythos ($0 AI) →</a>
+                    </div>
+                </div>
+
+                <!-- DEPARTMENT MISSION BAYS -->
+                <div class="mission-bays-header">
+                    <span class="mission-eyebrow">⚡ FLEET CAPABILITIES &amp; DIVISIONS</span>
+                    <h2 class="mission-title">MISSION BAYS &amp; CAPABILITIES</h2>
+                </div>
+
+                <div class="mission-grid">
+                    
+                    <!-- Web Development -->
+                    <div class="mission-bay-card">
+                        <div>
+                            <div class="bay-char-row">
+                                <img src="assets/services/service-web-development.jpg" alt="Web Development" class="bay-avatar">
+                                <div>
+                                    <h4 class="bay-title">Web Development</h4>
+                                    <span class="bay-specialist">Custom Web Apps • High-Performance Platforms</span>
+                                </div>
+                            </div>
+                            <p class="bay-text">
+                                High-converting corporate web platforms, custom digital storefronts, and responsive client portals engineered with ultra-clean code and zero bloated templates.
+                            </p>
+                        </div>
+                        <div class="bay-footer">
+                            <span style="color: #64748b; font-size: 0.8rem;">Live: StirMyCoffee, WPI</span>
+                            <a href="https://web.lanzar.me" target="_blank" class="bay-link">web.lanzar.me ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Software & Timeline -->
+                    <div class="mission-bay-card">
+                        <div>
+                            <div class="bay-char-row">
+                                <img src="assets/services/software-applications.jpg" alt="Software Applications" class="bay-avatar">
+                                <div>
+                                    <h4 class="bay-title">Software Applications</h4>
+                                    <span class="bay-specialist">Timeline Intelligence • Forensic Systems</span>
+                                </div>
+                            </div>
+                            <p class="bay-text">
+                                Custom internal tools, databases, and Threadline forensic intelligence. Transforming fragmented communication streams into chronological timelines using SQLite WAL &amp; FTS5.
+                            </p>
+                        </div>
+                        <div class="bay-footer">
+                            <span style="color: #64748b; font-size: 0.8rem;">Offline-First Architecture</span>
+                            <a href="https://threadline.lanzar.me" target="_blank" class="bay-link">threadline.lanzar.me ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Business Solutions -->
+                    <div class="mission-bay-card">
+                        <div>
+                            <div class="bay-char-row">
+                                <img src="assets/services/service-business-solutions.jpg" alt="Business Solutions" class="bay-avatar">
+                                <div>
+                                    <h4 class="bay-title">Business Solutions</h4>
+                                    <span class="bay-specialist">Strategic Operations • Fixed Scoping</span>
+                                </div>
+                            </div>
+                            <p class="bay-text">
+                                Transparent scoping, schedule management, and fixed project fees. We help founders eliminate operational friction with tailored digital workflows.
+                            </p>
+                        </div>
+                        <div class="bay-footer">
+                            <span style="color: #64748b; font-size: 0.8rem;">Veteran Owned</span>
+                            <a href="https://lanzar.zohobookings.com/lanzar/#/lanzar" target="_blank" class="bay-link">Book Briefing ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Security & Identity -->
+                    <div class="mission-bay-card">
+                        <div>
+                            <div class="bay-char-row">
+                                <img src="assets/services/service-security.jpg" alt="Identity & Security" class="bay-avatar">
+                                <div>
+                                    <h4 class="bay-title">Identity &amp; Auth</h4>
+                                    <span class="bay-specialist">Zero-Trust Gateways • SSO Defense</span>
+                                </div>
+                            </div>
+                            <p class="bay-text">
+                                Zero-trust authentication gateways, single sign-on (SSO), data sovereignty protocols, and secure administrative controls across web assets.
+                            </p>
+                        </div>
+                        <div class="bay-footer">
+                            <span style="color: #64748b; font-size: 0.8rem;">Passkeys &amp; 2FA</span>
+                            <a href="https://auth.lanzar.me" target="_blank" class="bay-link">auth.lanzar.me ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Pythos AI Academy -->
+                    <div class="mission-bay-card" style="border: 1px solid var(--color-green);">
+                        <div>
+                            <div class="bay-char-row">
+                                <img src="assets/services/pythos.jpg" alt="Pythos AI" class="bay-avatar">
+                                <div>
+                                    <h4 class="bay-title">Pythos (Free AI)</h4>
+                                    <span class="bay-specialist" style="color: var(--color-green);">$0 Spend Guardrail • Free STEM</span>
+                                </div>
+                            </div>
+                            <p class="bay-text">
+                                Free, accessible STEM education for students everywhere. Built on a proven <strong>$0 AI spending guardrail</strong> with zero subscription paywalls or ads.
+                            </p>
+                        </div>
+                        <div class="bay-footer">
+                            <span style="color: var(--color-green); font-size: 0.8rem;">v1.8.52 Online</span>
+                            <a href="https://pythos.lanzar.me" target="_blank" class="bay-link" style="color: var(--color-green);">pythos.lanzar.me ↗</a>
+                        </div>
+                    </div>
+
+                    <!-- Customer Portal & Support -->
+                    <div class="mission-bay-card">
+                        <div>
+                            <div class="bay-char-row">
+                                <img src="assets/services/service-customer-portal.jpg" alt="Customer Portal" class="bay-avatar">
+                                <div>
+                                    <h4 class="bay-title">Customer Portal</h4>
+                                    <span class="bay-specialist">Client Dashboard • Telemetry &amp; Builds</span>
+                                </div>
+                            </div>
+                            <p class="bay-text">
+                                Existing client dashboard for managing deployments, accessing account services, viewing system telemetry, and reviewing active projects.
+                            </p>
+                        </div>
+                        <div class="bay-footer">
+                            <span style="color: #64748b; font-size: 0.8rem;">Authorized Access</span>
+                            <a href="https://portal.lanzar.me" target="_blank" class="bay-link">portal.lanzar.me ↗</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RESEARCH & ACTIVE LAB BUILDS -->
+                <div class="lab-showcase">
+                    <div class="lab-heading">
+                        <span>RESEARCH COLLABORATIONS &amp; BUILDS</span>
+                        <a href="blog.html" style="font-size: 0.88rem; color: var(--color-teal); text-decoration: none; font-family: var(--font-main);">View Blog →</a>
+                    </div>
+                    <div class="lab-grid">
+                        <div class="lab-item">
+                            <h4>ThermoPredict</h4>
+                            <p>Machine learning thermodynamic prediction model built with Worcester Polytechnic Institute (WPI).</p>
+                            <a href="https://predict.wpi.edu" target="_blank" class="lab-link">predict.wpi.edu ↗</a>
+                        </div>
+                        <div class="lab-item">
+                            <h4>Stir My Coffee</h4>
+                            <p>Community ratings and specialty cafe directory engineered for speed and clarity.</p>
+                            <a href="https://stirmycoffee.com" target="_blank" class="lab-link">stirmycoffee.com ↗</a>
+                        </div>
+                        <div class="lab-item">
+                            <h4>AI &amp; Automation</h4>
+                            <p>Specialized task agents and deterministic workflow automation tools for lean business operations.</p>
+                            <a href="https://ai.lanzar.me" target="_blank" class="lab-link">ai.lanzar.me ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONSOLE FOOTER -->
+                <footer class="console-footer">
+                    <div class="footer-grid">
+                        
+                        <!-- Col 1: Brand & Headquarters -->
+                        <div>
+                            <div class="footer-col-title">LANZAR MOTHERSHIP</div>
+                            <p class="footer-brand-desc">
+                                Modern engineering, deterministic software applications, and rapid IT infrastructure support across Massachusetts and beyond.
+                            </p>
+                            <div class="footer-contact-item">
+                                <span style="color: var(--color-gold); font-family: var(--font-mono); font-size: 0.75rem;">HQ HOTLINE:</span>
+                                <a href="tel:+15085718819" style="color: var(--color-teal); font-weight: 800; text-decoration: none;">(508) 571-8819</a>
+                            </div>
+                            <div class="footer-contact-item">
+                                <span style="color: var(--color-gold); font-family: var(--font-mono); font-size: 0.75rem;">DIRECT DISPATCH:</span>
+                                <a href="mailto:jon@lanzar.me" style="color: #fff; text-decoration: none;">jon@lanzar.me</a>
+                            </div>
+                        </div>
+
+                        <!-- Col 2: Active Divisions -->
+                        <div>
+                            <div class="footer-col-title">FLEET DIVISIONS</div>
+                            <ul class="footer-link-list">
+                                <li><a href="https://web.lanzar.me" target="_blank">Web Development Studio ↗</a></li>
+                                <li><a href="https://it.lanzar.me" target="_blank">Managed IT Services ↗</a></li>
+                                <li><a href="https://threadline.lanzar.me" target="_blank">Threadline Intelligence ↗</a></li>
+                                <li><a href="https://auth.lanzar.me" target="_blank">Identity &amp; SSO Gateways ↗</a></li>
+                                <li><a href="https://portal.lanzar.me" target="_blank">Customer Portal ↗</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Col 3: Research & Non-Profit -->
+                        <div>
+                            <div class="footer-col-title">RESEARCH &amp; LABS</div>
+                            <ul class="footer-link-list">
+                                <li><a href="https://pythos.lanzar.me" target="_blank">Pythos AI Academy ($0 Spend) ↗</a></li>
+                                <li><a href="https://predict.wpi.edu" target="_blank">ThermoPredict (WPI ML) ↗</a></li>
+                                <li><a href="https://stirmycoffee.com" target="_blank">Stir My Coffee ↗</a></li>
+                                <li><a href="blog.html">Mothership Log (Blog) →</a></li>
+                                <li><a href="https://tickets.lanzar.me" target="_blank">Support Desk (Tickets) ↗</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Col 4: Service Radius & Commitment -->
+                        <div>
+                            <div class="footer-col-title">SERVICE RADIUS</div>
+                            <p style="font-size: 0.85rem; line-height: 1.5; color: #cbd5e1; margin-bottom: 8px;">
+                                <strong style="color: var(--color-gold);">In-Person On-Site:</strong> Boston, Cambridge, MetroWest, Framingham, Marlborough, Worcester County.
+                            </p>
+                            <p style="font-size: 0.85rem; line-height: 1.5; color: #cbd5e1;">
+                                <strong style="color: var(--color-teal);">Remote Fleet Support:</strong> Worldwide via encrypted real-time diagnostic sessions.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="footer-bottom-bar">
+                        <div>
+                            &copy; 2026 LANZAR LLC. All rights reserved. Veteran-Owned &amp; Operated • Massachusetts, USA.
+                        </div>
+                        <div class="footer-telemetry-led">
+                            <span class="status-indicator" style="width: 8px; height: 8px; background: var(--color-green); border-radius: 50%; box-shadow: 0 0 8px var(--color-green); display: inline-block;"></span>
+                            CONSOLE ONLINE • TELEMETRY NOMINAL
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+        </main>
+
+    </div>
+
+</body>
+</html>
