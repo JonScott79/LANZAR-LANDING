@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LANZAR Background Mockup Studio — Layered Retro-Futuristic Depth</title>
+  <link rel="icon" type="image/svg+xml" href="assets/svg/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-dark: #070d14;
+      --panel-dark: #0d1722;
+      --panel-card: #132230;
+      --border-color: #22374c;
+      --teal-accent: #38bdf8;
+      --orange-accent: #f46b45;
+      --gold-accent: #e2b84d;
+      --text-main: #fbf7ee;
+      --text-muted: #8899a6;
+      --font-heading: 'Space Grotesk', system-ui, sans-serif;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-body: 'Inter', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Bar */
+    .studio-header {
+      background: rgba(13, 23, 34, 0.95);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      height: 36px;
+    }
+
+    .brand-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #ffffff;
+    }
+
+    .brand-badge {
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--teal-accent);
+      color: var(--teal-accent);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      letter-spacing: 1px;
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .header-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .header-links a:hover {
+      color: #ffffff;
+    }
+
+    /* Main Workspace Layout */
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      flex: 1;
+      height: calc(100vh - 65px);
+      overflow: hidden;
+    }
+
+    @media (max-width: 1024px) {
+      .studio-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+      }
+    }
+
+    /* Viewport / Stage Container */
+    .viewport-canvas-container {
+      position: relative;
+      background: #02060b;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* The Parallax Sandbox Frame */
+    .sandbox-frame {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 1280px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border-color);
+      perspective: 1200px;
+      cursor: crosshair;
+    }
+
+    .parallax-world {
+      position: absolute;
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
+      transform-style: preserve-3d;
+      transition: transform 0.08s ease-out;
+    }
+
+    /* Distinct Layers */
+    .plx-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.1s ease-out;
+    }
+
+    /* Layer 0: Sky Plate */
+    #layerSky {
+      z-index: 1;
+      background-image: url('assets/city/lanzar-city-sky.jpg');
+    }
+
+    /* Layer 1: Sun / Orbital Glow */
+    #layerAtmosphere {
+      z-index: 2;
+      background: radial-gradient(circle at 75% 25%, rgba(255, 230, 160, 0.45) 0%, rgba(244, 107, 69, 0.15) 35%, transparent 70%);
+      mix-blend-mode: screen;
+    }
+
+    /* Layer 2: Metropolis Panorama */
+    #layerPanorama {
+      z-index: 3;
+      background-image: url('assets/city/lanzar-city-panorama.jpg');
+      background-position: center bottom;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0.4) 100%);
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0.4) 100%);
+    }
+
+    /* Layer 3: Aerodynamic Aero-Speeders (Cutting through sky) */
+    .layer-craft-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .aero-speeder-hero {
+      position: absolute;
+      top: 18%;
+      right: 14%;
+      width: 380px;
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
+      animation: float-speeder 4s ease-in-out infinite alternate;
+      transition: all 0.3s ease;
+    }
+
+    @keyframes float-speeder {
+      0% {
+        transform: translateY(0px) rotate(-1deg);
+      }
+      100% {
+        transform: translateY(-16px) rotate(1.5deg);
+      }
+    }
+
+    /* Old Stiff Sedan for Comparison */
+    .old-stiff-sedan {
+      position: absolute;
+      top: 15%;
+      right: 14%;
+      width: 320px;
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.5));
+      display: none;
+    }
+
+    /* Layer 4: Distant Rocket / Air Traffic */
+    .traffic-craft-small {
+      position: absolute;
+      top: 32%;
+      left: 22%;
+      width: 110px;
+      opacity: 0.85;
+      animation: cruise-traffic 8s linear infinite;
+    }
+
+    @keyframes cruise-traffic {
+      0% { transform: translateX(0) translateY(0); }
+      50% { transform: translateX(40px) translateY(-8px); }
+      100% { transform: translateX(0) translateY(0); }
+    }
+
+    /* Layer 5: Foreground Balcony Terrace & Atmosphere */
+    #layerForeground {
+      z-index: 8;
+      background: linear-gradient(to top, rgba(7, 13, 20, 0.85) 0%, rgba(7, 13, 20, 0.2) 20%, transparent 45%);
+    }
+
+    /* Live HUD Overlay inside Canvas */
+    .hud-overlay {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      z-index: 10;
+      background: rgba(13, 23, 34, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      backdrop-filter: blur(8px);
+      max-width: 480px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    .hud-title {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hud-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    .hud-status {
+      display: flex;
+      gap: 16px;
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--teal-accent);
+    }
+
+    /* Sidebar Controls Deck */
+    .studio-sidebar {
+      background: var(--panel-dark);
+      border-left: 1px solid var(--border-color);
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .control-section {
+      background: var(--panel-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--teal-accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Concept Selector Buttons */
+    .concept-btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-concept {
+      background: rgba(13, 23, 34, 0.7);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 12px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .btn-concept:hover {
+      background: rgba(30, 52, 74, 0.9);
+      border-color: var(--teal-accent);
+    }
+
+    .btn-concept.active {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: var(--teal-accent);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+
+    .concept-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #ffffff;
+    }
+
+    .concept-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Layer Toggle Switches */
+    .toggle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .toggle-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.88rem;
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-main);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 22px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #22374c;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--teal-accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    /* Vehicle A/B Comparison Pill */
+    .vehicle-ab-deck {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: #09121c;
+      padding: 4px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      margin-top: 10px;
+    }
+
+    .btn-ab {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .btn-ab.active {
+      background: var(--teal-accent);
+      color: #070d14;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+    }
+
+    /* Range Sliders */
+    .range-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .range-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    input[type=range] {
+      width: 100%;
+      accent-color: var(--teal-accent);
+    }
+
+    /* Action CTA */
+    .btn-apply-hero {
+      background: linear-gradient(135deg, var(--teal-accent) 0%, #0284c7 100%);
+      color: #070d14;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.35);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-apply-hero:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(56, 189, 248, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Studio Header -->
+  <header class="studio-header" role="banner">
+    <div class="brand-group">
+      <a href="index.html" title="LANZAR Mothership">
+        <img src="assets/svg/logo.svg" alt="LANZAR" class="brand-logo" />
+      </a>
+      <span class="brand-title">BACKGROUND MOCKUP STUDIO</span>
+      <span class="brand-badge">INTERACTIVE LAYERED DEPTH</span>
+    </div>
+    <div class="header-links">
+      <a href="index.html">← Return to Homepage</a>
+      <a href="errors.html">Diagnostic Deck</a>
+    </div>
+  </header>
+
+  <!-- Studio Layout -->
+  <main class="studio-layout">
+    <!-- Interactive Parallax Viewport -->
+    <div class="viewport-canvas-container" id="canvasContainer">
+      <div class="sandbox-frame" id="sandboxFrame">
+        <div class="parallax-world" id="parallaxWorld">
+          <!-- Layer 0: Sky Plate -->
+          <div class="plx-layer" id="layerSky"></div>
+
+          <!-- Layer 1: Sun / Atmospheric Glow -->
+          <div class="plx-layer" id="layerAtmosphere"></div>
+
+          <!-- Layer 2: Tomorrowland Panorama (Needle Spires, Monorails, Domes) -->
+          <div class="plx-layer" id="layerPanorama"></div>
+
+          <!-- Layer 3: Dynamic Aerodynamic Aero-Speeders -->
+          <div class="layer-craft-wrapper" id="layerAeroCraft">
+            <!-- New Aerodynamic Hero Aero-Speeder -->
+            <img src="assets/vehicles/aero-speeder-hero.png" alt="Aerodynamic Aero-Speeder D-7" class="aero-speeder-hero" id="heroSpeeder" />
+
+            <!-- Comparison Old Stiff Sedan (Disabled by default) -->
+            <img src="assets/vehicles/flying-cars.jpg" alt="Old Stiff Sedan (No Aerodynamics)" class="old-stiff-sedan" id="oldSedan" />
+
+            <!-- Cruising Traffic in Distant Skyway -->
+            <img src="assets/vehicles/aero-speeder-hero.png" alt="Distant Sky Cruiser" class="traffic-craft-small" id="trafficCraft" />
+          </div>
+
+          <!-- Layer 4: Foreground Balcony Terrace -->
+          <div class="plx-layer" id="layerForeground"></div>
+        </div>
+
+        <!-- Live HUD Overlay -->
+        <div class="hud-overlay">
+          <div class="hud-title">
+            <span>✨ Tomorrowland Metropolis</span>
+          </div>
+          <p class="hud-desc" id="hudDesc">
+            Multi-plane composited depth. Featuring authentic aerodynamic swept-wing speeders with rear rocket impulse exhaust banking across the skyway over the World's Fair architectural panorama.
+          </p>
+          <div class="hud-status">
+            <span>DEPTH: <strong id="hudDepthVal">1.0x</strong></span>
+            <span>AERO VEHICLE: <strong id="hudVehicleVal">AERO-SPEEDER D-7</strong></span>
+            <span>PARALLAX: <strong>ACTIVE</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Controls -->
+    <aside class="studio-sidebar" role="complementary">
+      <!-- Concept Selection -->
+      <section class="control-section">
+        <div class="section-title">
+          <span>1. Concept Plates</span>
+          <span>✦</span>
+        </div>
+        <div class="concept-btn-stack">
+          <button class="btn-concept active" data-concept="tomorrowland" type="button">
+            <span class="concept-name">☀️ The Tomorrowland Skyway</span>
+            <span class="concept-sub">Sunlit World's Fair panorama, turquoise waterways, D-7 aero-speeder</span>
+          </button>
+          <button class="btn-concept" data-concept="sunset" type="button">
+            <span class="concept-name">🌇 Golden Hour Aerodrome</span>
+            <span class="concept-sub">Warm amber sunset, glowing ion contrails, evening monorail beams</span>
+          </button>
+          <button class="btn-concept" data-concept="neon" type="button">
+            <span class="concept-name">🌃 Midnight Spire City</span>
+            <span class="concept-sub">Deep space navy, cyan neon architectural trim, starlight glow</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Vehicle Comparison (The Key Fix) -->
+      <section class="control-section">
+        <div class="section-title">
+          <span>2. Flight Vehicle Selection</span>
+          <span>🚀</span>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
+          Compare the new aerodynamic speeder vs the old stiff sedan:
+        </p>
+        <div class="vehicle-ab-deck">
+          <button class="btn-ab active" id="btnAeroSpeeder" type="button">
+            ✨ Aero-Speeder
+          </button>
+          <button class="btn-ab" id="btnOldSedan" type="button">
+            ⚠️ Old Stiff Sedan
+          </button>
+        </div>
+      </section>
+
+      <!-- Multi-Plane Layer Toggles -->
+      <section class="control-section">
+        <div class="section-title">
+          <span>3. Multi-Plane Layers</span>
+          <span>🥞</span>
+        </div>
+        <div class="toggle-list">
+          <div class="toggle-item">
+            <span class="toggle-label">☁️ Sky & Cloud Plate</span>
+            <label class="switch">
+              <input type="checkbox" id="chkSky" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <span class="toggle-label">☀️ Sun & Atmospheric Haze</span>
+            <label class="switch">
+              <input type="checkbox" id="chkAtmosphere" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <span class="toggle-label">🏙️ Metropolis Panorama</span>
+            <label class="switch">
+              <input type="checkbox" id="chkPanorama" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <span class="toggle-label">🚀 Aerodynamic Flight Craft</span>
+            <label class="switch">
+              <input type="checkbox" id="chkCraft" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <span class="toggle-label">🌿 Foreground Terrace</span>
+            <label class="switch">
+              <input type="checkbox" id="chkForeground" checked />
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Parallax Physics Controls -->
+      <section class="control-section">
+        <div class="section-title">
+          <span>4. Parallax Sensitivity</span>
+          <span>📐</span>
+        </div>
+        <div class="range-group">
+          <div class="range-label-row">
+            <span>Mouse 3D Tilt Strength</span>
+            <span id="tiltVal">100%</span>
+          </div>
+          <input type="range" id="rngTilt" min="0" max="200" value="100" />
+        </div>
+      </section>
+
+      <!-- Apply to Homepage Action -->
+      <button class="btn-apply-hero" id="btnApplyHero" type="button">
+        <span>🚀 Ready for Homepage Integration</span>
+      </button>
+    </aside>
+  </main>
+
+  <script>
+    const sandboxFrame = document.getElementById('sandboxFrame');
+    const parallaxWorld = document.getElementById('parallaxWorld');
+    const layerSky = document.getElementById('layerSky');
+    const layerAtmosphere = document.getElementById('layerAtmosphere');
+    const layerPanorama = document.getElementById('layerPanorama');
+    const layerAeroCraft = document.getElementById('layerAeroCraft');
+    const layerForeground = document.getElementById('layerForeground');
+    const heroSpeeder = document.getElementById('heroSpeeder');
+    const oldSedan = document.getElementById('oldSedan');
+    const hudDesc = document.getElementById('hudDesc');
+    const hudVehicleVal = document.getElementById('hudVehicleVal');
+    const hudDepthVal = document.getElementById('hudDepthVal');
+
+    let tiltMultiplier = 1.0;
+
+    // Interactive 3D Parallax on Mouse Movement
+    sandboxFrame.addEventListener('mousemove', (e) => {
+      if (tiltMultiplier === 0) return;
+      const rect = sandboxFrame.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const rotX = -y * 12 * tiltMultiplier;
+      const rotY = x * 16 * tiltMultiplier;
+      const panX = -x * 30 * tiltMultiplier;
+      const panY = -y * 20 * tiltMultiplier;
+
+      parallaxWorld.style.transform = `translate3d(${panX}px, ${panY}px, 0px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      
+      // Independent sub-layer translation for true multi-plane depth
+      layerPanorama.style.transform = `translate3d(${panX * 0.4}px, ${panY * 0.4}px, 0px)`;
+      layerAeroCraft.style.transform = `translate3d(${panX * 1.2}px, ${panY * 1.2}px, 40px)`;
+      layerSky.style.transform = `translate3d(${panX * 0.15}px, ${panY * 0.15}px, -40px)`;
+    });
+
+    sandboxFrame.addEventListener('mouseleave', () => {
+      parallaxWorld.style.transform = `translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg)`;
+      layerPanorama.style.transform = `translate3d(0px, 0px, 0px)`;
+      layerAeroCraft.style.transform = `translate3d(0px, 0px, 0px)`;
+      layerSky.style.transform = `translate3d(0px, 0px, 0px)`;
+    });
+
+    // Layer Toggles
+    document.getElementById('chkSky').addEventListener('change', (e) => {
+      layerSky.style.opacity = e.target.checked ? '1' : '0';
+    });
+    document.getElementById('chkAtmosphere').addEventListener('change', (e) => {
+      layerAtmosphere.style.opacity = e.target.checked ? '1' : '0';
+    });
+    document.getElementById('chkPanorama').addEventListener('change', (e) => {
+      layerPanorama.style.opacity = e.target.checked ? '1' : '0';
+    });
+    document.getElementById('chkCraft').addEventListener('change', (e) => {
+      layerAeroCraft.style.opacity = e.target.checked ? '1' : '0';
+    });
+    document.getElementById('chkForeground').addEventListener('change', (e) => {
+      layerForeground.style.opacity = e.target.checked ? '1' : '0';
+    });
+
+    // Vehicle A/B Switcher
+    const btnAeroSpeeder = document.getElementById('btnAeroSpeeder');
+    const btnOldSedan = document.getElementById('btnOldSedan');
+
+    btnAeroSpeeder.addEventListener('click', () => {
+      btnAeroSpeeder.classList.add('active');
+      btnOldSedan.classList.remove('active');
+      heroSpeeder.style.display = 'block';
+      oldSedan.style.display = 'none';
+      hudVehicleVal.textContent = 'AERO-SPEEDER D-7';
+    });
+
+    btnOldSedan.addEventListener('click', () => {
+      btnOldSedan.classList.add('active');
+      btnAeroSpeeder.classList.remove('active');
+      heroSpeeder.style.display = 'none';
+      oldSedan.style.display = 'block';
+      hudVehicleVal.textContent = 'OLD STIFF SEDAN (WHEELS REMOVED)';
+    });
+
+    // Sensitivity Slider
+    const rngTilt = document.getElementById('rngTilt');
+    const tiltVal = document.getElementById('tiltVal');
+    rngTilt.addEventListener('input', (e) => {
+      tiltMultiplier = e.target.value / 100;
+      tiltVal.textContent = `${e.target.value}%`;
+      hudDepthVal.textContent = `${tiltMultiplier.toFixed(1)}x`;
+    });
+
+    // Concept Switcher
+    const conceptBtns = document.querySelectorAll('.btn-concept');
+    conceptBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        conceptBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const concept = btn.getAttribute('data-concept');
+
+        if (concept === 'tomorrowland') {
+          layerSky.style.filter = 'none';
+          layerPanorama.style.filter = 'none';
+          layerAtmosphere.style.background = 'radial-gradient(circle at 75% 25%, rgba(255, 230, 160, 0.45) 0%, rgba(244, 107, 69, 0.15) 35%, transparent 70%)';
+          hudDesc.textContent = "Multi-plane composited depth. Featuring authentic aerodynamic swept-wing speeders with rear rocket impulse exhaust banking across the skyway over the World's Fair architectural panorama.";
+        } else if (concept === 'sunset') {
+          layerSky.style.filter = 'hue-rotate(-20deg) saturate(1.4) brightness(0.95)';
+          layerPanorama.style.filter = 'sepia(0.2) saturate(1.3) contrast(1.05)';
+          layerAtmosphere.style.background = 'radial-gradient(circle at 60% 40%, rgba(255, 140, 50, 0.6) 0%, rgba(180, 40, 90, 0.4) 50%, transparent 80%)';
+          hudDesc.textContent = "Golden Hour Aerodrome. Warm amber light rakes across the spire towers, with glowing exhaust contrails illuminating the twilight sky.";
+        } else if (concept === 'neon') {
+          layerSky.style.filter = 'hue-rotate(180deg) brightness(0.4) saturate(1.6)';
+          layerPanorama.style.filter = 'brightness(0.7) contrast(1.25) saturate(1.2)';
+          layerAtmosphere.style.background = 'radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.5) 0%, rgba(13, 23, 34, 0.8) 70%, transparent 100%)';
+          hudDesc.textContent = "Midnight Spire City. Deep space navy sky with cyan neon architectural traces and glowing ionic impulse propulsion.";
+        }
+      });
+    });
+
+    document.getElementById('btnApplyHero').addEventListener('click', () => {
+      alert("Mockup settings verified! The layered architecture and aerodynamic aero-speeder assets are deployed and ready to be compiled into the live homepage.");
+    });
+  </script>
+</body>
+</html>
