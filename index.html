@@ -121,19 +121,25 @@
     ===================================== -->
     <div id="world-window" class="hidden">
         
-        <!-- City Layers Placeholder -->
-        <div class="living-city">
-            <div class="layer layer-sky" style="background-image: url('assets/city/lanzar-city-sky.jpg');"></div>
-            <div class="layer layer-city" style="background-image: url('assets/city/lanzar-city-master.jpg');"></div>
-            <div class="layer layer-air-traffic" style="background-image: url('assets/services/software-applications.jpg'); opacity: 0.1; mix-blend-mode: multiply;">
-                <!-- Temporary flying cars placeholder. In actual implementation, these will be distinct floating img tags. -->
+        <!-- Layered Tomorrowland Living City -->
+        <div class="living-city" id="livingCity">
+            <!-- Layer 0: Sky Plate -->
+            <div class="layer layer-sky" id="citySkyLayer" style="background-image: url('assets/city/lanzar-city-sky.jpg');"></div>
+
+            <!-- Layer 1: Sun & Atmospheric Glow -->
+            <div class="layer layer-atmosphere" id="cityAtmoLayer" style="background: radial-gradient(circle at 75% 25%, rgba(255, 230, 160, 0.35) 0%, rgba(244, 107, 69, 0.1) 40%, transparent 70%); mix-blend-mode: screen;"></div>
+
+            <!-- Layer 2: Tomorrowland Panorama (Needle Spires, Monorails, World Monument) -->
+            <div class="layer layer-city" id="cityPanoLayer" style="background-image: url('assets/city/lanzar-city-panorama.jpg');"></div>
+
+            <!-- Layer 3: Aerodynamic Air Traffic (Hero Aero-Speeder D-7 & Distant Cruiser) -->
+            <div class="layer-air-traffic" id="cityAeroLayer">
+                <img src="assets/vehicles/aero-speeder-hero.png" alt="Aerodynamic Aero-Speeder D-7" class="aero-speeder-hero" id="heroAeroSpeeder" />
+                <img src="assets/vehicles/aero-speeder-hero.png" alt="Distant Sky Cruiser" class="aero-speeder-distant" />
             </div>
-            <div class="layer layer-transit" style="background-image: url('assets/vehicles/transit.jpg'); opacity: 0.1; mix-blend-mode: multiply;">
-            </div>
-            <div class="layer layer-street" style="background-image: url('assets/characters/pedestrians.jpg'); opacity: 0.1; mix-blend-mode: multiply;">
-            </div>
-            <div class="layer layer-environment" style="background-image: url('assets/environments/waterfront.jpg'); opacity: 0.1; mix-blend-mode: multiply;">
-            </div>
+
+            <!-- Layer 4: Foreground Atmosphere Gradient -->
+            <div class="layer layer-environment" style="background: linear-gradient(to top, rgba(16, 42, 67, 0.45) 0%, transparent 35%);"></div>
         </div>
 
         <div class="site-content">

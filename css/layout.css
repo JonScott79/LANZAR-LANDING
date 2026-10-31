@@ -59,6 +59,65 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center bottom;
+    transition: transform 0.1s ease-out;
+}
+
+/* Aerodynamic Air Traffic Layer */
+.layer-air-traffic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.aero-speeder-hero {
+    position: absolute;
+    top: 14%;
+    right: 8%;
+    width: clamp(240px, 28vw, 420px);
+    height: auto;
+    filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.45));
+    animation: aeroSpeederFloat 6s ease-in-out infinite alternate;
+    will-change: transform;
+}
+
+@keyframes aeroSpeederFloat {
+    0% {
+        transform: translateY(0px) rotate(-1deg) scale(1);
+    }
+    50% {
+        transform: translateY(-14px) rotate(1.2deg) scale(1.01);
+    }
+    100% {
+        transform: translateY(-6px) rotate(-0.5deg) scale(1);
+    }
+}
+
+.aero-speeder-distant {
+    position: absolute;
+    top: 26%;
+    left: 18%;
+    width: clamp(90px, 10vw, 150px);
+    height: auto;
+    opacity: 0.85;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+    animation: aeroCruiseDistant 12s linear infinite;
+    will-change: transform;
+}
+
+@keyframes aeroCruiseDistant {
+    0% {
+        transform: translateX(0px) translateY(0px);
+    }
+    50% {
+        transform: translateX(45px) translateY(-10px);
+    }
+    100% {
+        transform: translateX(0px) translateY(0px);
+    }
 }
 
 .site-content {

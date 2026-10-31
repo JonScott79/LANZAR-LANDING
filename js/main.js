@@ -265,3 +265,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// =====================================
+// Layered Background Parallax Physics
+// =====================================
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const skyLayer = document.getElementById('citySkyLayer');
+    const panoLayer = document.getElementById('cityPanoLayer');
+    const aeroLayer = document.getElementById('cityAeroLayer');
+
+    if (!panoLayer || !aeroLayer) return;
+
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isTicking = false;
+
+    window.addEventListener('mousemove', (e) => {
+        const xNorm = (e.clientX / window.innerWidth) - 0.5;
+        const yNorm = (e.clientY / window.innerHeight) - 0.5;
+        targetX = xNorm;
+        targetY = yNorm;
+
+        if (!isTicking) {
+            requestAnimationFrame(updateParallax);
+            isTicking = true;
+        }
+    }, { passive: true });
+
+    function updateParallax() {
+        // Smooth lerp
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+
+        if (skyLayer) {
+            skyLayer.style.transform = `translate3d(${currentX * 12}px, ${currentY * 8}px, 0)`;
+        }
+        panoLayer.style.transform = `translate3d(${currentX * 24}px, ${currentY * 14}px, 0)`;
+        aeroLayer.style.transform = `translate3d(${currentX * 42}px, ${currentY * 26}px, 0)`;
+
+        if (Math.abs(targetX - currentX) > 0.001 || Math.abs(targetY - currentY) > 0.001) {
+            requestAnimationFrame(updateParallax);
+        } else {
+            isTicking = false;
+        }
+    }
+});
