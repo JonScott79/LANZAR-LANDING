@@ -1,0 +1,447 @@
+/* my-lanzar-deck.css — Mothership Authenticated "MY LANZAR" Experience */
+
+/* HUD Nav Account Pill */
+.hud-account-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(17, 24, 39, 0.85);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: 20px;
+  padding: 4px 12px 4px 6px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+}
+
+.hud-account-pill:hover {
+  border-color: #ffd700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.hud-pill-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ffd700;
+}
+
+.hud-pill-avatar-placeholder {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1e293b;
+  color: #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  border: 1px solid #ffd700;
+}
+
+.hud-pill-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #f8fafc;
+}
+
+.hud-pill-badge {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255, 215, 0, 0.15);
+  color: #ffd700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.hud-signin-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  color: #ffd700;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.hud-signin-btn:hover {
+  background: #ffd700;
+  color: #000;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.3);
+}
+
+/* Slide-out Deck Drawer Backdrop */
+.my-lanzar-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.my-lanzar-drawer-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Slide-out Operations Deck */
+.my-lanzar-drawer {
+  position: fixed;
+  top: 0;
+  right: -580px;
+  width: 100%;
+  max-width: 540px;
+  height: 100vh;
+  background: #0b0f19;
+  border-left: 1px solid #1f293d;
+  box-shadow: -15px 0 40px rgba(0, 0, 0, 0.85);
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-y: auto;
+}
+
+.my-lanzar-drawer.active {
+  right: 0;
+}
+
+/* Drawer Header */
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 1.75rem;
+  background: #101624;
+  border-bottom: 1px solid #1e293d;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.drawer-orb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ffd700;
+  box-shadow: 0 0 10px #ffd700;
+}
+
+.drawer-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.drawer-sub {
+  font-size: 0.65rem;
+  font-family: 'JetBrains Mono', monospace;
+  color: #06b6d4;
+  letter-spacing: 0.08em;
+}
+
+.btn-drawer-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.btn-drawer-close:hover {
+  color: #fff;
+  background: #1e293b;
+}
+
+/* Drawer Body */
+.drawer-body {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+}
+
+/* Hero Badge Card */
+.drawer-hero-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: #131b2c;
+  border: 1px solid #23304a;
+  border-radius: 10px;
+}
+
+.drawer-avatar-wrap {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.drawer-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffd700;
+}
+
+.drawer-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #1e293b;
+  border: 2px solid #ffd700;
+  color: #ffd700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.drawer-name {
+  margin: 0 0 0.2rem 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.drawer-email {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+.drawer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.badge-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(255, 215, 0, 0.1);
+  color: #ffd700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* Drawer Section */
+.drawer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.drawer-section-title {
+  font-size: 0.78rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Quick Status Grid */
+.drawer-status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.drawer-status-pill {
+  background: #101624;
+  border: 1px solid #1e293d;
+  padding: 0.75rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.drawer-status-label {
+  font-size: 0.65rem;
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.drawer-status-val {
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.drawer-status-val.nominal {
+  color: #10b981;
+}
+
+.drawer-status-val.warning {
+  color: #f59e0b;
+}
+
+/* Launchpad Links */
+.drawer-app-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.drawer-app-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  background: #101624;
+  border: 1px solid #1e293d;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+}
+
+.drawer-app-card:hover {
+  background: #172235;
+  border-color: #ffd700;
+}
+
+.drawer-app-icon {
+  font-size: 1.4rem;
+}
+
+.drawer-app-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #fff;
+}
+
+.drawer-app-sub {
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+/* The Dispatch Promo in Drawer */
+.drawer-dispatch-box {
+  background: rgba(255, 215, 0, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: 8px;
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.drawer-dispatch-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.drawer-dispatch-title {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #ffd700;
+  margin: 0;
+}
+
+.drawer-dispatch-text {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.btn-dispatch-toggle {
+  background: #ffd700;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: all 0.2s;
+}
+
+.btn-dispatch-toggle.subscribed {
+  background: transparent;
+  color: #94a3b8;
+  border: 1px solid #334155;
+}
+
+.btn-dispatch-toggle:hover {
+  opacity: 0.9;
+}
+
+/* Footer Drawer Action */
+.drawer-footer {
+  padding: 1.25rem 1.75rem;
+  background: #090d15;
+  border-top: 1px solid #1e293d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+}
+
+.btn-full-id-portal {
+  background: #1e293b;
+  color: #ffd700;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #ffd700;
+}
+
+.btn-drawer-signout {
+  background: transparent;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-drawer-signout:hover {
+  color: #f43f5e;
+  border-color: #f43f5e;
+}
