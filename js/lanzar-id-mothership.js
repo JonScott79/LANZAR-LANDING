@@ -14,23 +14,129 @@
     : 'https://auth-api.lanzar.me';
 
   const AUTH_PORTAL_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:3000'
+    ? 'http://localhost:4000'
     : 'https://auth.lanzar.me';
 
-  const ID_PORTAL_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:3000'
-    : 'https://id.lanzar.me';
+  const ACCOUNT_PORTAL_URL = `${AUTH_PORTAL_URL}/account`;
+  const FIREBASE_WEB_API_KEY = 'AIzaSyCm11MJPwYKk2ckDIrTOGLNHdyFkdCOM2k';
+  const CLIENT_ID = 'mothership';
 
   const TOKEN_KEY = 'lanzar_id_token';
   const REFRESH_KEY = 'lanzar_refresh_token';
+  const SESSION_ID_KEY = 'lanzar_session_id';
+  const PKCE_VERIFIER_KEY = 'mothership_pkce_verifier';
+  const PKCE_STATE_KEY = 'mothership_pkce_state';
 
   let currentUserProfile = null;
+  let currentSessionInfo = null;
   let isDispatchSubscribed = false;
 
-  // Extract token from URL if returning from login redirect
-  function handleUrlAuthToken() {
+  function base64UrlEncode(bytes) {
+    let binary = '';
+    const arr = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+    for (let i = 0; i < arr.length; i++) {
+      binary += String.fromCharCode(arr[i]);
+    }
+    return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+
+  function generateCodeVerifier() {
+    const bytes = new Uint8Array(32);
+    crypto.getRandomValues(bytes);
+    return base64UrlEncode(bytes);
+  }
+
+  async function generateCodeChallenge(verifier) {
+    const encoded = new TextEncoder().encode(verifier);
+    const digest = await crypto.subtle.digest('SHA-256', encoded);
+    return base64UrlEncode(new Uint8Array(digest));
+  }
+
+  async function redirectToLanzarIdLogin() {
+    const verifier = generateCodeVerifier();
+    const challenge = await generateCodeChallenge(verifier);
+    const state = typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : generateCodeVerifier();
+
+    try {
+      sessionStorage.setItem(PKCE_VERIFIER_KEY, verifier);
+      sessionStorage.setItem(PKCE_STATE_KEY, state);
+    } catch (_) {}
+
+    const params = new URLSearchParams({
+      client_id: CLIENT_ID,
+      redirect_uri: window.location.origin,
+      code_challenge: challenge,
+      code_challenge_method: 'S256',
+      state
+    });
+    window.location.href = `${AUTH_PORTAL_URL}?${params.toString()}`;
+  }
+
+  async function exchangeCustomTokenForIdToken(customToken) {
+    const res = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${FIREBASE_WEB_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: customToken, returnSecureToken: true })
+      }
+    );
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.idToken) {
+      throw new Error(data?.error?.message || 'Failed to exchange custom token for Firebase ID token.');
+    }
+    return data;
+  }
+
+  // Handle incoming PKCE (?code=&state=) callback or legacy URL token fallback
+  async function handleUrlAuthToken() {
     try {
       const urlParams = new URLSearchParams(window.location.search);
+      const code = urlParams.get('code');
+      const state = urlParams.get('state');
+
+      if (code) {
+        let expectedState = null;
+        let codeVerifier = null;
+        try {
+          expectedState = sessionStorage.getItem(PKCE_STATE_KEY);
+          codeVerifier = sessionStorage.getItem(PKCE_VERIFIER_KEY);
+          sessionStorage.removeItem(PKCE_STATE_KEY);
+          sessionStorage.removeItem(PKCE_VERIFIER_KEY);
+        } catch (_) {}
+
+        urlParams.delete('code');
+        urlParams.delete('state');
+        const remaining = urlParams.toString();
+        const cleanUrl = window.location.pathname + (remaining ? '?' + remaining : '') + window.location.hash;
+        window.history.replaceState({}, document.title, cleanUrl);
+
+        if ((!expectedState || !state || expectedState === state) && codeVerifier) {
+          const exRes = await fetch(`${AUTH_API_BASE}/exchange`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              code,
+              client_id: CLIENT_ID,
+              redirect_uri: window.location.origin,
+              code_verifier: codeVerifier
+            })
+          });
+          const exData = await exRes.json().catch(() => ({}));
+          if (exRes.ok && exData.custom_token) {
+            if (exData.session_id) {
+              localStorage.setItem(SESSION_ID_KEY, exData.session_id);
+            }
+            const fbData = await exchangeCustomTokenForIdToken(exData.custom_token);
+            localStorage.setItem(TOKEN_KEY, fbData.idToken);
+            if (fbData.refreshToken) {
+              localStorage.setItem(REFRESH_KEY, fbData.refreshToken);
+            }
+          }
+        }
+        return;
+      }
+
       const tokenFromUrl = urlParams.get('id_token') || urlParams.get('token');
       if (tokenFromUrl) {
         localStorage.setItem(TOKEN_KEY, tokenFromUrl);
@@ -41,7 +147,7 @@
         window.history.replaceState({}, document.title, cleanUrl);
       }
     } catch (e) {
-      console.warn('[LANZAR ID] Failed URL token capture:', e);
+      console.warn('[LANZAR ID] Failed URL auth/PKCE capture:', e);
     }
   }
 
@@ -52,7 +158,27 @@
   function clearStoredAuth() {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(REFRESH_KEY);
+    localStorage.removeItem(SESSION_ID_KEY);
     currentUserProfile = null;
+    currentSessionInfo = null;
+  }
+
+  // Strictly read-only session inspection via central cookie (OD-6: zero Firestore writes)
+  async function inspectCentralCookieSession() {
+    try {
+      const res = await fetch(`${AUTH_API_BASE}/api/id/session/me`, {
+        method: 'GET',
+        credentials: 'include'
+      });
+      if (!res.ok) return null;
+      const data = await res.json().catch(() => null);
+      if (data && data.authenticated) {
+        return data;
+      }
+      return null;
+    } catch (_) {
+      return null;
+    }
   }
 
   // Fetch current user profile
@@ -122,14 +248,16 @@
     if (!navContainer) return;
 
     if (!profile) {
-      // Unauthenticated: render Login pill
-      const redirectUri = encodeURIComponent(window.location.origin);
+      // Unauthenticated: render S256 PKCE Login pill
       navContainer.innerHTML = `
-        <a class="hud-signin-btn" href="${AUTH_PORTAL_URL}?client_id=mothership&redirect_uri=${redirectUri}">
+        <button type="button" class="hud-signin-btn" id="btn-lanzar-pkce-signin">
           <span>LANZAR ID</span>
           <span style="font-size: 1.1em; line-height: 1;">&rarr;</span>
-        </a>
+        </button>
       `;
+      document.getElementById('btn-lanzar-pkce-signin')?.addEventListener('click', () => {
+        redirectToLanzarIdLogin().catch(err => console.error('[LANZAR ID] PKCE redirect failed:', err));
+      });
       return;
     }
 
@@ -186,7 +314,7 @@
       </div>
 
       <footer class="drawer-footer">
-        <a class="btn-full-id-portal" href="${ID_PORTAL_URL}" target="_blank" rel="noopener">
+        <a class="btn-full-id-portal" href="${ACCOUNT_PORTAL_URL}" target="_blank" rel="noopener">
           MANAGE ACCOUNT &rarr;
         </a>
         <button class="btn-drawer-signout" id="btn-lanzar-signout">
@@ -332,6 +460,10 @@
       btn.disabled = true;
 
       const token = getStoredToken();
+      if (!token) {
+        await redirectToLanzarIdLogin();
+        return;
+      }
       const success = await toggleDispatchSubscription(token, targetState);
       if (success) {
         isDispatchSubscribed = targetState;
@@ -363,7 +495,25 @@
     }
   }
 
-  function handleSignOut() {
+  async function handleSignOut() {
+    const token = getStoredToken();
+    const sessionId = localStorage.getItem(SESSION_ID_KEY);
+    try {
+      if (sessionId && token) {
+        await fetch(`${AUTH_API_BASE}/api/id/sessions/${encodeURIComponent(sessionId)}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        }).catch(() => {});
+      }
+      await fetch(`${AUTH_API_BASE}/api/id/session/logout`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Lanzar-Client': 'id'
+        }
+      }).catch(() => {});
+    } catch (_) {}
     clearStoredAuth();
     closeDeckDrawer();
     renderNavPill(null);
@@ -371,24 +521,36 @@
 
   // Initialization
   async function init() {
-    handleUrlAuthToken();
+    await handleUrlAuthToken();
     ensureDrawerMarkup();
 
     const token = getStoredToken();
-    if (!token) {
-      renderNavPill(null);
+    if (token) {
+      const profile = await fetchProfile(token);
+      if (profile) {
+        currentUserProfile = profile;
+        isDispatchSubscribed = await fetchDispatchStatus(token);
+        renderNavPill(currentUserProfile);
+        return;
+      }
+    }
+
+    // Read-only central cookie check (/api/id/session/me) for cross-app SSO visibility on lanzar.me
+    const cookieSession = await inspectCentralCookieSession();
+    if (cookieSession && cookieSession.authenticated) {
+      currentSessionInfo = cookieSession;
+      currentUserProfile = {
+        uid: cookieSession.uid,
+        displayName: cookieSession.role === 'admin' ? 'LANZAR Admin' : 'LANZAR Operator',
+        email: 'Active LANZAR ID Session',
+        status: 'ACTIVE',
+        derivedBadges: cookieSession.role === 'admin' ? ['ADMIN', 'LANZAR ID'] : ['LANZAR ID']
+      };
+      renderNavPill(currentUserProfile);
       return;
     }
 
-    const profile = await fetchProfile(token);
-    if (!profile) {
-      renderNavPill(null);
-      return;
-    }
-
-    currentUserProfile = profile;
-    isDispatchSubscribed = await fetchDispatchStatus(token);
-    renderNavPill(currentUserProfile);
+    renderNavPill(null);
   }
 
   if (document.readyState === 'loading') {
